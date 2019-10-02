@@ -2,6 +2,8 @@
 import argparse
 import Levenshtein as lev
 import sys
+from fuzzywuzzy import fuzz 
+from fuzzywuzzy import process 
 
 
 def parse_args():
@@ -24,21 +26,18 @@ def read_master_list(path):
 def main():
     args = parse_args()
     master_list_path = args.path
-    master_list = read_master_list(master_list_path)
+    choices = read_master_list(master_list_path)
     while True:
-        user_input = input("What are you looking for?\n").lower()
-        # Compute the leveshtein distance 
-        best_distance = sys.maxsize
-        best_ratio = 0
-        best_option = None
-        for string in master_list:
-            d = lev.distance(user_input,string.lower())
-            r = lev.ratio(user_input,string.lower())
-            if (d < best_distance):
-                best_distance = d
-                best_ration = r
-                best_option = string
-        print("I think you meant: {}".format(best_option))
+        query = input("What are you looking for?\n").lower()
+        # Compute the best choice using the leveshtein distance and WRatio
+        print("Using token set ratio")
+        print(process.extract(query,choices,scorer=fuzz.token_set_ratio))
+        print("Using partial token set ratio")
+        print(process.extract(query,choices,scorer=fuzz.partial_token_set_ratio))
+        print("Using partial ratio")
+        print(process.extract(query,choices,scorer=fuzz.partial_ratio))
+        best = process.extractOne(query,choices, scorer=fuzz.token_sort_ratio)
+        print("I think you meant: {}".format(best))
 
 
     
