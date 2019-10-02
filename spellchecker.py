@@ -21,6 +21,9 @@ def main():
     args = parse_args()
     master_list_path = args.path
     master_list = read_master_list(master_list_path)
+    while True:
+        company = input("What's the company?")
+        
     
 
 if __name__ == '__main__':
