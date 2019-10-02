@@ -1,6 +1,6 @@
 #
 import argparse
-
+import Levenshtein as lev
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Read the master list')
@@ -22,8 +22,9 @@ def main():
     master_list_path = args.path
     master_list = read_master_list(master_list_path)
     while True:
-        company = input("What's the company?")
-        
+        string = input("What are you looking for?")
+        # Compute the leveshtein distance 
+
     
 
 if __name__ == '__main__':
