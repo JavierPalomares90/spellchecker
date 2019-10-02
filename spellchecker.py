@@ -7,7 +7,7 @@ import sys
 def parse_args():
     parser = argparse.ArgumentParser(description='Read the master list')
     parser.add_argument('-p','--path')
-    args = parser.parse_args
+    args = parser.parse_args()
     return args
 
 # Read the master list line by line
@@ -16,17 +16,19 @@ def read_master_list(path):
     with open(path,'r') as fp:
         line = fp.readline()
         while line:
+            line = line.rstrip('\n')
             master_list.append(line)
-    return line
+            line = fp.readline()
+    return master_list 
 
 def main():
     args = parse_args()
     master_list_path = args.path
     master_list = read_master_list(master_list_path)
     while True:
-        user_input = input("What are you looking for?").lower()
+        user_input = input("What are you looking for?\n").lower()
         # Compute the leveshtein distance 
-        best_distance = sys.maxint
+        best_distance = sys.maxsize
         best_ratio = 0
         best_option = None
         for string in master_list:
