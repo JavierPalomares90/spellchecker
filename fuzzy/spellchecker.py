@@ -1,4 +1,9 @@
-#
+#!/usr/bin/env python3
+# Copyright Javier Palomares 2019
+
+##
+## Python3 implemenation of spellchecker using Fuzzy Matching
+#  
 import argparse
 import Levenshtein as lev
 import sys
