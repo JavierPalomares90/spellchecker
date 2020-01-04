@@ -25,7 +25,15 @@ def get_args():
     return args
 
 def scrape_url(url,filepath):
-    pass
+    website = urlopen(url)
+    html = website.read()
+    soup = BeautifulSoup(html,"html.parser")
+    trademarks = soup.findAll('li')
+    with open(filepath,"a",encoding="utf-8") as f:
+        for trademark in trademarks:
+            text = trademark.get_text()
+            f.write(text+"\n")
+
 
 def main():
     args = get_args()
