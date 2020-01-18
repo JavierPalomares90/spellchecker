@@ -3,6 +3,9 @@
 
 import re
 import argparse
+import os.path
+from os import path
+import sys
 from collections import Counter
 
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
@@ -14,6 +17,10 @@ def get_args():
     return args
 
 def get_dictionary_terms(dictionary_path):
+    if path.exists(dictionary_path) == False:
+        print("Dictionary path {} does not exist".format(dictionary_path))
+        sys.exit(-1)
+
     # get all the words in the dictionary.
     with open(dictionary_path,'r',encoding="utf-8") as dictionary_text:
     # dictionary is text sensitive
