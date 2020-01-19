@@ -1,14 +1,17 @@
 # Copyright Javier Palomares 2020
 
 import hashlib
+import sys
+from .SymspellSuggestion import SymspellSuggestion
 
 
-class symspell_dictionary:
+class SymspellDictionary:
 
-    def __init__(self,count_threshold = 3):
+    def __init__(self,count_threshold = 1,max_dictionary_edit_distance=2, prefix_len = 7):
         self.count_threshold= count_threshold
         self.max_dictionary_word_length = 0
-
+        self.max_dictionary_edit_distance = max_dictionary_edit_distance
+        self.prefix_length = prefix_len
         '''
             // Dictionary that contains a mapping of lists of suggested correction words to the hashCodes
             // of the original words and the deletes derived from them. Collisions of hashCodes is tolerated,
@@ -38,7 +41,7 @@ class symspell_dictionary:
                     words_set.add(delete_edit)
                     # recursive find other delete edits
                     if edit_distance < max_dictionary_edit_distance:
-                        symspell_dictionary._get_edits(delete_edit,edit_distance,words_set,max_dictionary_edit_distance)
+                        SymspellDictionary._get_edits(delete_edit,edit_distance,words_set,max_dictionary_edit_distance)
         return words_set
 
     @staticmethod
@@ -49,14 +52,14 @@ class symspell_dictionary:
 
     @staticmethod
     def _get_edits_prefix(term,max_dictionary_edit_distance,prefix_length):
-        edits = {}
+        edits = set()
         if len(term) <= max_dictionary_edit_distance:
             # word is too short, add empty string
             edits.add("")
         if len(term) > prefix_length:
             term = term[0:prefix_length]
         edits.add(term)
-        return symspell_dictionary._get_edits(term,0,edits,max_dictionary_edit_distance)
+        return SymspellDictionary._get_edits(term,0,edits,max_dictionary_edit_distance)
 
     '''
     <summary>Create/Update an entry in the dictionary.</summary>
@@ -105,7 +108,7 @@ class symspell_dictionary:
             self.max_dictionary_word_length = len(term)
 
         # create delete edits
-        edits = symspell_dictionary._get_edits_prefix(term,max_dictionary_edit_distance,prefix_length)
+        edits = SymspellDictionary._get_edits_prefix(term,max_dictionary_edit_distance,prefix_length)
 
         if edits:
             if self.deletes is None:
@@ -114,7 +117,7 @@ class symspell_dictionary:
             for delete in edits:
 
                 # get a hash key for the edit
-                delete_hash = symspell_dictionary._get_string_hash(delete)
+                delete_hash = SymspellDictionary._get_string_hash(delete)
 
                 # add the term to the suggestions for each delete edit
                 suggestions = self.deletes.get(delete_hash)
@@ -125,3 +128,59 @@ class symspell_dictionary:
                 self.deletes[delete_hash] = suggestions
 
         return True;
+
+    '''
+    <summary>Create/Update an entry in the dictionary.</summary>
+    <remarks>For every word there are deletes with an edit distance of 1..maxEditDistance created and added to the
+    dictionary. Every delete entry has a suggestions list, which points to the original term(s) it was created from.
+    The dictionary may be dynamically updated (word frequency and new words) at any time by calling CreateDictionaryEntry</remarks>
+    <returns>True if the word was added as a new correctly spelled word,
+    or false if the word is added as a below threshold word, or updates an
+    existing correctly spelled word.</returns>
+    '''
+
+    def lookup(self, input, verbosity,max_edit_distance, include_unknown):
+        if max_edit_distance > self.max_dictionary_edit_distance:
+            print("Invalid edit distance")
+            sys.exit(-1)
+        suggestions = [];
+        input_len = len(input)
+
+        # word is too long to possibly match any suggestions
+        if input_len - max_edit_distance > self.max_dictionary_word_length:
+            return None
+
+        num_suggestions = 0
+        # quick look for an exact match
+        suggestion_count = self.words.get(input)
+        if suggestion_count:
+            suggestion = SymspellSuggestion(input,0,suggestion_count)
+            suggestions.append(suggestion)
+            return suggestions
+
+        if max_edit_distance == 0:
+            return None
+
+        deletes_considered = set()
+        suggestions_considered = set()
+
+        # we considered the input as a suggestion
+        suggestions_considered.add(input)
+        max_edit_distance_candidate = max_edit_distance
+        candidate = None
+        single_suggestion = ''
+        candidates = list()
+
+        # Add original prefix
+        input_prefix_len = input_len
+        if input_prefix_len > self.prefix_length:
+            input_prefix_len = self.prefix_length
+            candidates.append(input[:input_prefix_len])
+        else:
+            candidates.append(input)
+
+
+
+
+
+
