@@ -1,5 +1,7 @@
 # Copyright Javier Palomares 2020
 
+import hashlib
+
 
 class symspell_dictionary:
 
@@ -39,6 +41,11 @@ class symspell_dictionary:
                         symspell_dictionary._get_edits(delete_edit,edit_distance,words_set,max_dictionary_edit_distance)
         return words_set
 
+    @staticmethod
+    def _get_string_hash(s):
+        hash = int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16) % 10 ** 8
+        return hash
+
 
     @staticmethod
     def _get_edits_prefix(term,max_dictionary_edit_distance,prefix_length):
@@ -51,6 +58,15 @@ class symspell_dictionary:
         edits.add(term)
         return symspell_dictionary._get_edits(term,0,edits,max_dictionary_edit_distance)
 
+    '''
+    <summary>Create/Update an entry in the dictionary.</summary>
+    <remarks>For every word there are deletes with an edit distance of 1..maxEditDistance created and added to the
+    dictionary. Every delete entry has a suggestions list, which points to the original term(s) it was created from.
+    The dictionary may be dynamically updated (word frequency and new words) at any time by calling CreateDictionaryEntry</remarks>
+    <returns>True if the word was added as a new correctly spelled word,
+    or False if the word is added as a below threshold word, or updates an
+    existing correctly spelled word.</returns>
+    '''
     def create_dictionary_entry(self,term,count,max_dictionary_edit_distance,prefix_length):
         if count < 0:
             if self.count_threshold > 0:
@@ -91,4 +107,21 @@ class symspell_dictionary:
         # create delete edits
         edits = symspell_dictionary._get_edits_prefix(term,max_dictionary_edit_distance,prefix_length)
 
-        #TODO: Complete impl
+        if edits:
+            if self.deletes is None:
+                self.deletes = dict()
+            # iterate over each delete edit
+            for delete in edits:
+
+                # get a hash key for the edit
+                delete_hash = symspell_dictionary._get_string_hash(delete)
+
+                # add the term to the suggestions for each delete edit
+                suggestions = self.deletes.get(delete_hash)
+                if suggestions:
+                    suggestions.append(term)
+                else:
+                    suggestions = [term]
+                self.deletes[delete_hash] = suggestions
+
+        return True;
