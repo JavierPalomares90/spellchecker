@@ -3,6 +3,7 @@
 import hashlib
 import sys
 from .SymspellSuggestion import SymspellSuggestion
+from edit import EditDistance
 
 
 class SymspellDictionary:
@@ -167,7 +168,7 @@ class SymspellDictionary:
         # we considered the input as a suggestion
         suggestions_considered.add(input)
         max_edit_distance_candidate = max_edit_distance
-        candidate = None
+        candidate_index = 0
         single_suggestion = ''
         candidates = list()
 
@@ -178,6 +179,96 @@ class SymspellDictionary:
             candidates.append(input[:input_prefix_len])
         else:
             candidates.append(input)
+
+        edit_distance = EditDistance()
+        while candidate_index < len(candidates):
+            candidate = candidates[candidate_index]
+            candidate_len = len(candidate)
+            len_diff = input_prefix_len - candidate_len
+            # if candidate distance is already higher than suggestion distance,
+            # then there are no better suggestions to be expected
+            if len_diff > max_edit_distance_candidate:
+                break;
+
+            # read candidate entry from the dictionary
+            suggestions = self.deletes.get(SymspellDictionary._get_string_hash(candidate))
+
+            if suggestions:
+                for suggestion in suggestions:
+                    if suggestion == input:
+                        continue
+                    suggestion_len = len(suggestion)
+
+                    # input and suggestion lengths differ more than the allowed best distance
+                    if ((abs(suggestion_len - input_len) > max_edit_distance_candidate) or \
+                        # suggestion must be for a different delete string, in same bin only because of hash collision
+                        (suggestion_len < candidate_len) or \
+                        # if suggestion len = candidate len, then it either equals delete or is in same bin only because of hash collision
+                        (suggestion_len == candidate_len and suggestion != candidate)):
+                        continue
+                    suggestion_prefix_len = min(suggestion_len,self.prefix_length)
+
+                    if suggestion_prefix_len > input_prefix_len and (suggestion_prefix_len - candidate_len) > max_edit_distance_candidate:
+                        continue
+
+                    '''
+                    True Damerau-Levenshtein Edit Distance: adjust distance, if both distances>0
+                    We allow simultaneous edits (deletes) of maxEditDistance on on both the dictionary and the input term. 
+                    For replaces and adjacent transposes the resulting edit distance stays <= maxEditDistance.
+                    For inserts and deletes the resulting edit distance might exceed maxEditDistance.
+                    To prevent suggestions of a higher edit distance, we need to calculate the resulting edit distance, if there are simultaneous edits on both sides.
+                    Example: (bank==bnak and bank==bink, but bank!=kanb and bank!=xban and bank!=baxn for maxEditDistance=1)
+                    Two deletes on each side of a pair makes them all equal, but the first two pairs have edit distance=1, the others edit distance=2.
+                    '''
+                    distance = 0
+                    min = 0
+                    if candidate_len == 0:
+                        distance = max(input_len,suggestion_len)
+                        if distance > max_edit_distance_candidate:
+                            continue
+                        if suggestion in suggestions_considered:
+                            continue
+                        suggestions_considered.add(suggestion)
+
+                    elif suggestion_len == 1:
+                        if input.find(suggestion[:1]) < 0:
+                            distance = input_len
+                        else:
+                            distance = input_len - 1
+                        if distance > max_edit_distance_candidate:
+                            continue
+                        if suggestion in suggestions_considered:
+                            continue
+                        suggestions_considered.add(suggestion)
+                    else:
+                        '''
+                        number of edits in prefix ==maxediddistance  AND no identic suffix,
+                        then editdistance>maxEditDistance and no need for Levenshtein calculation  
+                        (input_len >= prefix_len) && (suggestion_len >= prefix_len)
+                        '''
+                        is_candidate_len = self.prefix_len - max_edit_distance == candidate_len
+                        min_len = min(input_len,suggestion_len)
+
+                        #TODO: Check this logic
+                        input_suggestion_test_1 = input[input_len + 1 - min_len:] != suggestion[suggestion_len + 1 - min_len]
+                        input_suggestion_test_2 = min_len > 0 and (input[input_len - min] != suggestion[suggestion_len - min])
+                        input_suggestion_test_3 = input[input_len - min - 1 ] != suggestion[suggestion_len - min]
+                        input_suggestion_test_4 = input[input_len - min] != suggestion[suggestion_len - min - 1]
+
+                        if is_candidate_len and ( min_len > 1 and (input_suggestion_test_1 or input_suggestion_test_2) and (input_suggestion_test_3 or input_suggestion_test_4):
+                            continue
+                else:
+                    pass
+                    #TODO: Complete implt
+
+
+
+
+
+
+
+
+
 
 
 
