@@ -11,11 +11,13 @@ class SymspellCompound(SymspellDictionary):
 
     @staticmethod
     def parse_words(text):
-        matches = re.match("['’\w-[_]]+",text.lower())
-        #TODO: Complete impl
-        return matches
+        return re.findall('[A-Za-z\']+(?:\`[A-Za-z]+)?',text.lower())
     
     def lookup_compound(input, max_edit_distance):
         terms = parse_words(input)
+        suggestions = []
+        suggestion_parts = []
+
+        edit_distance = EditDistance()
 
 
