@@ -143,7 +143,7 @@ class SymspellDictionary:
                     suggestions = [term]
                 self.deletes[delete_hash] = suggestions
 
-        return True;
+        return True
 
     '''
     <summary>Create/Update an entry in the dictionary.</summary>
@@ -159,7 +159,7 @@ class SymspellDictionary:
         if max_edit_distance > self.max_dictionary_edit_distance:
             print("Invalid edit distance")
             sys.exit(-1)
-        suggestions = [];
+        suggestions = []
         input_len = len(input)
 
         # word is too long to possibly match any suggestions
