@@ -1,5 +1,6 @@
 # Copyright Javier Palomares 2020fro
 from symspell.SymspellDictionary import SymspellDictionary
+from symspell.SymspellVerbosity import SymspellVerbosity
 import re
 
 class SymspellCompound(SymspellDictionary):
@@ -19,5 +20,25 @@ class SymspellCompound(SymspellDictionary):
         suggestion_parts = []
 
         edit_distance = EditDistance()
+
+        # get the best suggestion for each term, else leave it as is.
+        terms_combined = False
+
+        for i in range(len(terms)):
+            suggestions = super().lookup(terms[i],SymspellVerbosity.TOP,max_edit_distance)
+
+            # check for combination
+            if i > 0 and terms_combined is False:
+                suggestions_for_combination = super.lookup(terms[i-1] + terms[i],SymspellVerbosity.TOP,max_edit_distance)
+
+                if len(suggestions_for_combination) > 0:
+                    best1 = suggestion_parts[len(suggestions_for_combination) - 1]
+                    #TODO: Complete impl
+                    best2 = None
+
+                
+
+
+
 
 
