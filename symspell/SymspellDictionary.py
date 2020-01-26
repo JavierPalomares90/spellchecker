@@ -20,7 +20,7 @@ class SymspellDictionary:
             // because suggestions are ultimately verified via an edit distance function.
             // A list of suggestions might have a single suggestion, or multiple suggestions.
         '''
-        self.deletes = dict()
+        self.deletes = set()
         '''
             // Dictionary of unique words that are below the count threshold for being considered correct spellings.
         '''
@@ -50,6 +50,11 @@ class SymspellDictionary:
     def _get_string_hash(s):
         hash = int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16) % 10 ** 8
         return hash
+
+    @staticmethod
+    def _sort_suggestions(suggestions)
+        #TODO: Complete impl
+        return suggestions 
 
 
     @staticmethod
@@ -262,8 +267,9 @@ class SymspellDictionary:
                         else:
                             # Delete In Suggestion Prefix is expensive computation
                             # Only use it when verbosity is Top or Closest
-                            # TODO: Need to define different verbosities
-                            pass
+                            if verbosity is SymspellVerbosity.TOP or verbosity is SymspellVerbosity.CLOSEST:
+                                #TODO: Complete impl
+                                pass
                     # Do not process higher distances than those
                     # already found if verbosity is not ALL.
                     # In that case, maxEditDistanceCandidate is equal to the maxEdiDistance
@@ -289,7 +295,29 @@ class SymspellDictionary:
 
                             #
             # add edits
+            # derive edits from the input and add to the candidate list recursively
+            if len_diff < max_edit_distance and candidate_len < input_prefix_len:
+                # don't need to create edits with edit distance smaller than the suggestions already found
+                if verbosity is SymspellVerbosity.ALL and len_diff > max_edit_distance_candidate:
+                    continue
+
+                for i in range(candidate_len):
+                    delete = candidate[0:i] + candidate[i+1:]
+                    if delete in deletes is False:
+                        deletes.add(delete)
+                        candidates.add(delete)
             
+        # sort by ascending edit distance
+        if len(suggestions) > 1:
+            suggestions = _sort_suggestions(suggestions)
+            if include_unknown is True and len(suggestions) == 0:
+                suggestions.add(SymspellSuggestion(input,max_edit_distance+1,0))
+        return suggestions
+
+
+
+
+
 
 
 
