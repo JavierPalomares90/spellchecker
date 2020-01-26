@@ -3,6 +3,7 @@
 import hashlib
 import sys
 from .SymspellSuggestion import SymspellSuggestion
+from .SymspellVerbosity import SymspellVerbosity
 from edit import EditDistance
 
 
@@ -195,6 +196,7 @@ class SymspellDictionary:
 
             if suggestions:
                 for suggestion in suggestions:
+
                     if suggestion == input:
                         continue
                     suggestion_len = len(suggestion)
@@ -257,9 +259,37 @@ class SymspellDictionary:
 
                         if is_candidate_len and ( min_len > 1 and (input_suggestion_test_1 or input_suggestion_test_2) and (input_suggestion_test_3 or input_suggestion_test_4):
                             continue
-                else:
-                    pass
-                    #TODO: Complete implt
+                        else:
+                            # Delete In Suggestion Prefix is expensive computation
+                            # Only use it when verbosity is Top or Closest
+                            # TODO: Need to define different verbosities
+                            pass
+                    # Do not process higher distances than those
+                    # already found if verbosity is not ALL.
+                    # In that case, maxEditDistanceCandidate is equal to the maxEdiDistance
+
+                    if  distance < max_edit_distance_candidate:
+                        suggestion_count = self.words[suggestion]
+                        symspell_suggestion = SymspellSuggestion(suggestion,distance,suggestion_count)
+                        
+                        if suggestion_count > 0:
+
+                            # If verbosity is closest, calcute the DemLev distance only up ot the smallest found distance so far
+                            if verbosity is SymspellVerbosity.CLOSEST:
+                                if distance < max_edit_distance_candidate:
+                                    suggestions = []
+                            elif verbosity is SymspellVerbosity.TOP
+                                if distance < max_edit_distance_candidate or suggestion_count > suggestions[0].count:
+                                    max_edit_distance_candidate = distance
+                                    suggestions[0] = symspell_suggestion
+                                continue
+                        if verbosity is SymspellVerbosity.ALL:
+                            max_edit_distance_candidate = distance
+                        suggestions.append(symspell_suggestion)
+
+                            #
+            # add edits
+            
 
 
 
