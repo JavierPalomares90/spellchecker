@@ -68,6 +68,15 @@ class SymspellDictionary:
         edits.add(term)
         return SymspellDictionary._get_edits(term,0,edits,max_dictionary_edit_distance)
 
+
+    # Check if all the delete chars are present in the suggestion prefix order
+    @staticmethod
+    def delete_in_suggestion_prefix(delete,delete_len, suggestion,suggestion_len):
+        #TODO: Complete impl
+
+        return True
+
+
     '''
     <summary>Create/Update an entry in the dictionary.</summary>
     <remarks>For every word there are deletes with an edit distance of 1..maxEditDistance created and added to the
