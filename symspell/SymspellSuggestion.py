@@ -4,7 +4,7 @@
 class SymspellSuggestion:
 
     def __init__(self):
-        self.Term = None
+        self.term = None
         self.distance = None
         self.count = None
 
