@@ -120,23 +120,38 @@ class SymspellCompound(SymspellDictionary):
                                     # The Bayes's prob of the word combination is the product of the 2 word probs
                                     # P(A B) = P(A) * P(B)
                                     # use it to estimate the frequency count of the combination which is then used to rank the best splitting variatn
-                                    suggestion_split.count = min(bigra)
+                                    suggestion_split.count = min(self.bigram_count_min,( suggestions1[0].count / Symspell.N * suggestions2[0].count) )
+                                if (suggestion_split_best is None or suggestion_split.count > suggestion_split_best.count ):
+                                    suggestion_split_best = suggestion_split
+                    pass
+                    if suggestion_split_best is not None:
+                        #TODO: WTF is suggestion_parts
+                        suggestion_parts.append(suggestion_split_best)
+                    else:
+                        si = SymspellSuggestion()
+                        si.term = terms[i]
+                        # estimate the word probability
+                        si.count = 10 / (10 ** len(si.term))
+                        si.distance = max_edit_distance + 1
+                        #TODO Where is suggestion_parts defined
+                        suggestion_parts.append(si)
+        suggestion = SymspellSuggestion()
+        #TODO: Fix N
+        count = Symspell.N
+        s = ''
+        for si in suggestions_parts:
+            s = s + si.term + " "
+            count = count * (si.count /Symspell.N)
 
+        suggestion.count = count
+        suggestion.term = s
+        #TODO: implement edit_distance compare
+        suggestion.distance = edit_distance.compare(input,suggestion.term,sys.maxsize)
 
-            
+        suggestions_line = list()
+        suggestions_line.append(suggestion)
 
-
-
-                                pass
-
-
-
-
-
-
-
-                
-
+        return suggestions_line
 
 
 
