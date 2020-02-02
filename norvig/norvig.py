@@ -8,6 +8,7 @@ from os import path
 import sys
 from collections import Counter
 
+#TODO: Add special characters
 LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 
 def get_args():
@@ -23,7 +24,7 @@ def get_dictionary_terms(dictionary_path):
 
     # get all the words in the dictionary.
     with open(dictionary_path,'r',encoding="utf-8") as dictionary_text:
-    # dictionary is text sensitive
+    # dictionary is text sensitive. TODO: Include special characters
         terms = re.findall(r'\w+',dictionary_text.read())
     return terms
 
@@ -99,8 +100,6 @@ def get_casefold_dictionary(dictionary_terms):
             values_list.append(term)
             terms[key] = values_list
     return terms
-
-
 
 
 def get_error_model(dictionary):
