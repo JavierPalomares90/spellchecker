@@ -68,22 +68,22 @@ def get_candidate_words(word,valid_terms):
     edit_1_terms = get_words_within_edit_distance(word,1)
     valid_terms_in_edit_1 = get_valid_terms(edit_1_terms,valid_terms)
     if len(valid_terms_in_edit_1) != 0:
-        return edit_1_terms
+        return valid_terms_in_edit_1
     edit_2_terms = get_words_within_edit_distance(word,2)
     valid_terms_in_edit_2 = get_valid_terms(edit_2_terms,valid_terms)
     if len(valid_terms_in_edit_2) != 0:
-        return edit_2_terms
+        return valid_terms_in_edit_2
     return None
 
 def get_error_model(dictionary):
     dictionary_terms = get_dictionary_terms(dictionary)
     term_frequencies = get_term_frequencies(dictionary_terms)
     term_probabilities = get_term_probabilities(term_frequencies)
-    return dictionary_terms,term_probabilities
+    return list(term_probabilities.keys()),term_probabilities
 
-def get_spelling_correction(word,error_model):
-    candidate_words = get_candidate_words(word,error_model.keys())
-    return max(candidate_words,key=error_model)
+def get_spelling_correction(word,dictionary_terms,error_model):
+    candidate_words = get_candidate_words(word,dictionary_terms)
+    return max(candidate_words,key= lambda k: error_model[k])
 
 def main():
     args = get_args()
@@ -92,7 +92,7 @@ def main():
     # get the word from the user to check for spelling
     while True:
         word = input("Try my spelling:\n")
-        correction = get_spelling_correction(word,error_model)
+        correction = get_spelling_correction(word,dictionary_terms,error_model)
         print("I suggest you spell that as {}".format(correction))
 
 if __name__ == '__main__':
