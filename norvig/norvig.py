@@ -38,7 +38,7 @@ def get_term_probabilities(term_freqs):
         term_probs[term] = term_probs[term] / num_words
     return term_probs
 
-def is_valid_terms(words,valid_terms):
+def get_valid_terms(words,valid_terms):
     return set(w for w in words if w in valid_terms)
 
 def _words_with_edit_distance_1(word):
@@ -62,13 +62,16 @@ def get_words_within_edit_distance(word,edit_distance):
         return s
 
 def get_candidate_words(word,valid_terms):
-    if is_valid_terms([word],valid_terms):
-        return word
+    valid_terms_in_word = get_valid_terms([word],valid_terms)
+    if len(valid_terms_in_word) != 0:
+        return valid_terms_in_word
     edit_1_terms = get_words_within_edit_distance(word,1)
-    if is_valid_terms(edit_1_terms) is not None:
+    valid_terms_in_edit_1 = get_valid_terms(edit_1_terms,valid_terms)
+    if len(valid_terms_in_edit_1) != 0:
         return edit_1_terms
     edit_2_terms = get_words_within_edit_distance(word,2)
-    if is_valid_terms(edit_2_terms) is not None:
+    valid_terms_in_edit_2 = get_valid_terms(edit_2_terms,valid_terms)
+    if len(valid_terms_in_edit_2) != 0:
         return edit_2_terms
     return None
 
@@ -76,7 +79,7 @@ def get_error_model(dictionary):
     dictionary_terms = get_dictionary_terms(dictionary)
     term_frequencies = get_term_frequencies(dictionary_terms)
     term_probabilities = get_term_probabilities(term_frequencies)
-    return term_probabilities
+    return dictionary_terms,term_probabilities
 
 def get_spelling_correction(word,error_model):
     candidate_words = get_candidate_words(word,error_model.keys())
