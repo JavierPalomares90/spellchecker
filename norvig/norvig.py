@@ -80,6 +80,11 @@ def get_candidate_words(word,valid_terms):
     valid_terms_in_edit_2 = get_valid_terms(edit_2_terms,valid_terms)
     if len(valid_terms_in_edit_2) != 0:
         return valid_terms_in_edit_2
+    # try edit distance 3. Is there a bug in here?
+    #edit_3_terms = get_words_within_edit_distance(word,3)
+    #valid_terms_in_edit_3 = get_valid_terms(edit_3_terms,valid_terms)
+    #if len(valid_terms_in_edit_3) != 0:
+    #    return valid_terms_in_edit_3
     return None
 
 def get_casefold_dictionary(dictionary_terms):
@@ -117,6 +122,7 @@ def get_error_model(dictionary):
 
 def get_spelling_correction(word,dictionary_terms,error_model):
     candidate_words = get_candidate_words(word,dictionary_terms)
+    #if candidate_words is no
     return max(candidate_words,key= lambda k: error_model[k])
 
 def main():
@@ -125,7 +131,8 @@ def main():
     dictionary_terms,error_model = get_error_model(dictionary)
     # get the word from the user to check for spelling
     while True:
-        word = input("Try my spelling:\n")
+        word = input("Try my spelling. One word at a time:\n")
+        #TODO: handle special characters
         correction = get_spelling_correction(word,dictionary_terms,error_model)
         print("I suggest you spell that as: \n{}".format(correction))
 
