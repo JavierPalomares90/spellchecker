@@ -39,7 +39,11 @@ def get_term_probabilities(term_freqs):
     return term_probs
 
 def get_valid_terms(words,valid_terms):
-    return set(w for w in words if w in valid_terms)
+    valid = set()
+    for w in words:
+        if w in valid_terms:
+            valid.add(w)
+    return valid
 
 def _words_with_edit_distance_1(word):
     splits     = [(word[:i], word[i:])    for i in range(len(word) + 1)]
@@ -79,7 +83,10 @@ def get_error_model(dictionary):
     dictionary_terms = get_dictionary_terms(dictionary)
     term_frequencies = get_term_frequencies(dictionary_terms)
     term_probabilities = get_term_probabilities(term_frequencies)
-    return list(term_probabilities.keys()),term_probabilities
+    terms = list(term_probabilities.keys())
+    # sort the list once
+    terms.sort()
+    return terms,term_probabilities
 
 def get_spelling_correction(word,dictionary_terms,error_model):
     candidate_words = get_candidate_words(word,dictionary_terms)
@@ -93,7 +100,7 @@ def main():
     while True:
         word = input("Try my spelling:\n")
         correction = get_spelling_correction(word,dictionary_terms,error_model)
-        print("I suggest you spell that as {}".format(correction))
+        print("I suggest you spell that as: \n{}".format(correction))
 
 if __name__ == '__main__':
     main()
