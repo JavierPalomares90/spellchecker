@@ -41,8 +41,10 @@ def get_term_probabilities(term_freqs):
 def get_valid_terms(words,valid_terms):
     valid = set()
     for w in words:
-        if w in valid_terms:
-            valid.add(w)
+        casefold_w = w.casefold()
+        if casefold_w in valid_terms:
+            spellings = set(valid_terms[casefold_w])
+            valid |= spellings
     return valid
 
 def _words_with_edit_distance_1(word):
@@ -79,13 +81,39 @@ def get_candidate_words(word,valid_terms):
         return valid_terms_in_edit_2
     return None
 
+def get_casefold_dictionary(dictionary_terms):
+    terms = dict()
+    # iterate over all the dictionary
+    for term in dictionary_terms:
+        # casefold key
+        key = term.casefold()
+
+        # if the key is not in the map, add the term as a new list
+        if key not in terms:
+            value = [term]
+            terms[key] = value
+            
+        else:
+            # add it to the list
+            values_list = terms[key]
+            values_list.append(term)
+            terms[key] = values_list
+    return terms
+
+
+
+
 def get_error_model(dictionary):
+    # get all the terms in the dictionary
     dictionary_terms = get_dictionary_terms(dictionary)
+    # get the frequency and probability of each unique term in the dictionary
     term_frequencies = get_term_frequencies(dictionary_terms)
     term_probabilities = get_term_probabilities(term_frequencies)
-    terms = list(term_probabilities.keys())
-    # sort the list once
-    terms.sort()
+
+    #dictionaries are case senstivite. Get a case insensitive lookup from casefold() keys to cased spellings
+    # return this as a dictionary for quick lookups
+    terms = get_casefold_dictionary(term_frequencies)
+
     return terms,term_probabilities
 
 def get_spelling_correction(word,dictionary_terms,error_model):
