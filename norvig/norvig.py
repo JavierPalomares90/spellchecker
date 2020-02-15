@@ -8,12 +8,12 @@ from os import path
 import sys
 from collections import Counter
 
-#TODO: Add special characters
-LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+LETTERS = "abcdefghijklmnopqrstuvwxyz&.,!@#$()-+'"
 
 def get_args():
     parser = argparse.ArgumentParser(description="Scrape text from a wikipedia article")
     parser.add_argument("-d","--dictionary",required=True, help="The text file to use for the dictionary")
+    parser.add_argument("-e","--max_edit_distance",required=False, default=2,help="The maximum edit distance to use in the algorithm")
     args = parser.parse_args()
     return args
 
@@ -24,8 +24,8 @@ def get_dictionary_terms(dictionary_path):
 
     # get all the words in the dictionary.
     with open(dictionary_path,'r',encoding="utf-8") as dictionary_text:
-    # dictionary is text sensitive. TODO: Include special characters
-        terms = re.findall(r'\w+',dictionary_text.read())
+        # dictionary is case sensitive. We want to keep special characters, so we'll simply split on whitespace
+        terms = dictionary_text.read().split()
     return terms
 
 def get_term_frequencies(dictionary_terms):
@@ -68,23 +68,15 @@ def get_words_within_edit_distance(word,edit_distance):
                 s.add(e2)
         return s
 
-def get_candidate_words(word,valid_terms):
+def get_candidate_words(word,valid_terms,max_edit_distance):
     valid_terms_in_word = get_valid_terms([word],valid_terms)
     if len(valid_terms_in_word) != 0:
         return valid_terms_in_word
-    edit_1_terms = get_words_within_edit_distance(word,1)
-    valid_terms_in_edit_1 = get_valid_terms(edit_1_terms,valid_terms)
-    if len(valid_terms_in_edit_1) != 0:
-        return valid_terms_in_edit_1
-    edit_2_terms = get_words_within_edit_distance(word,2)
-    valid_terms_in_edit_2 = get_valid_terms(edit_2_terms,valid_terms)
-    if len(valid_terms_in_edit_2) != 0:
-        return valid_terms_in_edit_2
-    # try edit distance 3. Is there a bug in here?
-    #edit_3_terms = get_words_within_edit_distance(word,3)
-    #valid_terms_in_edit_3 = get_valid_terms(edit_3_terms,valid_terms)
-    #if len(valid_terms_in_edit_3) != 0:
-    #    return valid_terms_in_edit_3
+    for i in range(max_edit_distance):
+        edit_i_terms = get_words_within_edit_distance(word,i+1)
+        valid_terms_in_edit_i = get_valid_terms(edit_i_terms,valid_terms)
+        if (len(valid_terms_in_edit_i) != 0):
+            return valid_terms_in_edit_i
     return None
 
 def get_casefold_dictionary(dictionary_terms):
@@ -114,27 +106,32 @@ def get_error_model(dictionary):
     term_frequencies = get_term_frequencies(dictionary_terms)
     term_probabilities = get_term_probabilities(term_frequencies)
 
-    #dictionaries are case senstivite. Get a case insensitive lookup from casefold() keys to cased spellings
+    # dictionaries are case senstivite. Get a case insensitive lookup from casefold() keys to cased spellings
     # return this as a dictionary for quick lookups
     terms = get_casefold_dictionary(term_frequencies)
 
     return terms,term_probabilities
 
-def get_spelling_correction(word,dictionary_terms,error_model):
-    candidate_words = get_candidate_words(word,dictionary_terms)
-    #if candidate_words is no
+def get_spelling_correction(word,dictionary_terms,error_model,max_edit_distance):
+    candidate_words = get_candidate_words(word,dictionary_terms,max_edit_distance)
+    if candidate_words is None:
+        return None
     return max(candidate_words,key= lambda k: error_model[k])
 
 def main():
     args = get_args()
     dictionary = args.dictionary
+    max_edit_distance = args.max_edit_distance
     dictionary_terms,error_model = get_error_model(dictionary)
     # get the word from the user to check for spelling
     while True:
         word = input("Try my spelling. One word at a time:\n")
         #TODO: handle special characters
-        correction = get_spelling_correction(word,dictionary_terms,error_model)
-        print("I suggest you spell that as: \n{}".format(correction))
+        correction = get_spelling_correction(word,dictionary_terms,error_model,max_edit_distance)
+        if correction is None:
+            print("I don't have a suggestion for you.\n")
+        else:
+            print("I suggest you spell that as:\n{}".format(correction))
 
 if __name__ == '__main__':
     main()
