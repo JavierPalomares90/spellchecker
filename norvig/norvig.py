@@ -15,6 +15,7 @@ import logging
 
 
 LETTERS = "abcdefghijklmnopqrstuvwxyz&.!$-+'"
+logging.basicConfig(level=logging.WARNING)
 
 def get_args():
     parser = argparse.ArgumentParser(description="Scrape text from a wikipedia article")
@@ -24,7 +25,7 @@ def get_args():
 
 def get_dictionary_terms(dictionary_path):
     if path.exists(dictionary_path) == False:
-        print("Dictionary path {} does not exist".format(dictionary_path))
+        logging.error("Dictionary path {} does not exist".format(dictionary_path))
         sys.exit(-1)
 
     # get all the words in the dictionary.
@@ -54,6 +55,7 @@ def get_valid_terms(words,valid_terms):
     return valid
 
 def _words_with_edit_distance_1(word):
+    logging.debug("Getting words with ED 1 of {}".format(word))
     splits     = [(word[:i], word[i:])    for i in range(len(word) + 1)]
     deletes    = [L + R[1:]               for L, R in splits if R]
     transposes = [L + R[1] + R[0] + R[2:] for L, R in splits if len(R)>1]
@@ -62,6 +64,7 @@ def _words_with_edit_distance_1(word):
     return set(deletes + transposes + replaces + inserts)
 
 def get_words_within_edit_distance(words,edit_distance):
+    logging.debug("Getting words within edit distance of ".format(edit_distance))
     if edit_distance == 0:
         return words
     s = set()
@@ -76,6 +79,7 @@ def get_words_within_edit_distance(words,edit_distance):
         return s
 
 def get_candidate_words(word,valid_terms,max_edit_distance):
+    logging.debug("Looking for candidates for {}".format(word))
     valid_terms_in_word = get_valid_terms([word],valid_terms)
     if len(valid_terms_in_word) != 0:
         return valid_terms_in_word
@@ -86,9 +90,11 @@ def get_candidate_words(word,valid_terms,max_edit_distance):
         edit_i_terms = None
         # if we have the edit terms at ED i-1, then use the previous edit terms and find terms within 1 ED of those
         if edit_i_1_terms is not None:
+            logging.debug("Getting edit terms dynamically for ED {}".format(i+1))
             edit_i_terms = get_words_within_edit_distance(edit_i_1_terms,1)
         # if we don't have any previous edit terms, recompute them all starting from the word
         else:
+            logging.debug("Recomputing all edit terms at ED {}".format(i+1))
             edit_i_terms = get_words_within_edit_distance([word],i+1)
         edit_i_1_terms = edit_i_terms
         valid_terms_in_edit_i = get_valid_terms(edit_i_terms,valid_terms)
@@ -126,10 +132,12 @@ def get_error_model(dictionary):
     # dictionaries are case senstivite. Get a case insensitive lookup from casefold() keys to cased spellings
     # return this as a dictionary for quick lookups
     terms = get_casefold_dictionary(term_frequencies)
+    logging.info("Loaded dictionary and model from {}".format(dictionary))
 
     return terms,term_probabilities
 
 def get_spelling_correction(word,dictionary_terms,error_model,max_edit_distance):
+    logging.debug("Getting correction for {} using max edit distance {}".format(word,max_edit_distance))
     candidate_words = get_candidate_words(word,dictionary_terms,max_edit_distance)
     if candidate_words is None:
         return None
