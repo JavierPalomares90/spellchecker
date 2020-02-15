@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright Javier Palomares 2019
+# Copyright (C) 2019 Javier Palomares
 
 ##
 ## Python3 implemenation of spellchecker using Fuzzy Matching

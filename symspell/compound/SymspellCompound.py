@@ -1,4 +1,5 @@
-# Copyright Javier Palomares 2020fro
+# Copyright (C) Javier Palomares 2020
+
 from symspell.SymspellDictionary import SymspellDictionary
 from symspell.SymspellVerbosity import SymspellVerbosity
 from symspell.SymspellSuggestion import SymspellSuggestion

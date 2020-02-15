@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright Javier Palomares 2020
+# Copyright (C) 2020 Javier Palomares
 
 import argparse
 import os.path

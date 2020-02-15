@@ -1,4 +1,4 @@
-# copyright Javier Palomares 2020
+# Copyright (C) 2020 Javier Palomares
 
 
 class DistanceAlgorithms:
