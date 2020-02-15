@@ -53,9 +53,9 @@ class SymspellCompound(SymspellDictionary):
                     # distance1 = distance between 2 split terms and their best corrections
                     distance1 = best1.distance + best2.distance
                     #TODO: waht the hell is N?
-                    if ((distance1 > 0 ) and ((suggestions_for_combination[0].distance + 1 < distance1) or ((suggestions_for_combination[0].distance + 1 == distance1) and (suggestions_for_combination[0].count > best1.count / SymSpell.N * best2.count))
-                        suggestions_for_combination[0].distance += 1
-                        suggestions_for_combination[len(suggestions_for_combination) -1 ] = suggestions_for_combination[0]
+                    if ((distance1 > 0 ) and ((suggestions_for_combination[0].distance + 1 < distance1) or ((suggestions_for_combination[0].distance + 1 == distance1) and (suggestions_for_combination[0].count > best1.count / SymSpell.N * best2.count)):
+                        suggestions_for_combination[0].distance =  (suggestions_for_combination[0].distance) + 1
+                        suggestions_for_combination[len(suggestions_for_combination) - 1 ] = suggestions_for_combination[0]
                         terms_combined = True
                         # GOTO: nextTerm
             terms_combined = False
@@ -74,8 +74,8 @@ class SymspellCompound(SymspellDictionary):
                 if len(terms[i]) > 1:
 
                     for j in range(len(terms)):
-                        part1 = terms[i][0:j]
-                        part2 = terms[i][j:]
+                        part1 = (terms[i])[0:j]
+                        part2 = (terms[i])[j:]
                         suggestions_split = SymspellSuggestion()
                         suggestions1 = super().lookup(part1,SymspellVerbosity.TOP,max_edit_distance)
 

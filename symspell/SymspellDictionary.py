@@ -52,7 +52,7 @@ class SymspellDictionary:
         return hash
 
     @staticmethod
-    def _sort_suggestions(suggestions)
+    def _sort_suggestions(suggestions):
         #TODO: Complete impl
         return suggestions 
 
@@ -271,7 +271,7 @@ class SymspellDictionary:
                         input_suggestion_test_3 = input[input_len - min - 1 ] != suggestion[suggestion_len - min]
                         input_suggestion_test_4 = input[input_len - min] != suggestion[suggestion_len - min - 1]
 
-                        if is_candidate_len and ( min_len > 1 and (input_suggestion_test_1 or input_suggestion_test_2) and (input_suggestion_test_3 or input_suggestion_test_4):
+                        if is_candidate_len and ( min_len > 1 and (input_suggestion_test_1 or input_suggestion_test_2) and (input_suggestion_test_3 or input_suggestion_test_4)):
                             continue
                         else:
                             # Delete In Suggestion Prefix is expensive computation
@@ -293,7 +293,7 @@ class SymspellDictionary:
                             if verbosity is SymspellVerbosity.CLOSEST:
                                 if distance < max_edit_distance_candidate:
                                     suggestions = []
-                            elif verbosity is SymspellVerbosity.TOP
+                            elif verbosity is SymspellVerbosity.TOP:
                                 if distance < max_edit_distance_candidate or suggestion_count > suggestions[0].count:
                                     max_edit_distance_candidate = distance
                                     suggestions[0] = symspell_suggestion
