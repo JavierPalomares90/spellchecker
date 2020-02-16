@@ -87,7 +87,7 @@ class SymspellDictionary:
     or False if the word is added as a below threshold word, or updates an
     existing correctly spelled word.</returns>
     '''
-    def create_dictionary_entry(self,term,count,max_dictionary_edit_distance,prefix_length):
+    def create_dictionary_entry(self,term,count,max_dictionary_edit_distance=2,prefix_length=7):
         if count < 0:
             if self.count_threshold > 0:
                 return False

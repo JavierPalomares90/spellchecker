@@ -24,8 +24,8 @@ def _load_dictionary(dictionary_text,term_index, count_index,separator):
         if len(tokens) > count_index:
             term = tokens[term_index]
             count = int(tokens[count_index])
-            SymspellDictionary.create_dictionary_entry(term,count)
-        line = dictionary_text.getline()
+            dictionary.create_dictionary_entry(term,count)
+        line = dictionary_text.readline()
     return dictionary
 
 
