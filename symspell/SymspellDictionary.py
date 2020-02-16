@@ -207,7 +207,7 @@ class SymspellDictionary:
         else:
             candidates.append(input)
 
-        edit_distance = DistanceAlgorithm(DistanceAlgorithms.LEVENSHTEIN)
+        edit_distance = DistanceAlgorithm(DistanceAlgorithms.DistanceAlgorithms.LEVENSHTEIN)
         while candidate_index < len(candidates):
             candidate = candidates[candidate_index]
             candidate_len = len(candidate)
