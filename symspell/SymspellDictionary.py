@@ -21,7 +21,7 @@ class SymspellDictionary:
             // because suggestions are ultimately verified via an edit distance function.
             // A list of suggestions might have a single suggestion, or multiple suggestions.
         '''
-        self.deletes = set()
+        self.deletes = dict()
         '''
             // Dictionary of unique words that are below the count threshold for being considered correct spellings.
         '''
