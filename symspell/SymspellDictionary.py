@@ -4,7 +4,8 @@ import hashlib
 import sys
 from .SymspellSuggestion import SymspellSuggestion
 from .SymspellVerbosity import SymspellVerbosity
-from edit import EditDistance
+from edit import DistanceAlgorithms
+from edit import DistanceAlgorithm
 
 
 class SymspellDictionary:
@@ -195,7 +196,7 @@ class SymspellDictionary:
         else:
             candidates.append(input)
 
-        edit_distance = EditDistance()
+        edit_distance = DistanceAlgorithm(DistanceAlgorithms.LEVENSHTEIN)
         while candidate_index < len(candidates):
             candidate = candidates[candidate_index]
             candidate_len = len(candidate)
@@ -203,7 +204,7 @@ class SymspellDictionary:
             # if candidate distance is already higher than suggestion distance,
             # then there are no better suggestions to be expected
             if len_diff > max_edit_distance_candidate:
-                break;
+                break
 
             # read candidate entry from the dictionary
             suggestions = self.deletes.get(SymspellDictionary._get_string_hash(candidate))
