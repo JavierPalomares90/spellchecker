@@ -40,7 +40,7 @@ class SymspellDictionary:
             for i in range(word_len):
                 # remove the ith character from the word
                 delete_edit = word[:i] + word[i+1:]
-                if delete_edit in words_set == False:
+                if (delete_edit in words_set) == False:
                     words_set.add(delete_edit)
                     # recursive find other delete edits
                     if edit_distance < max_dictionary_edit_distance:
