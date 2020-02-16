@@ -5,6 +5,7 @@ import argparse
 import os.path
 from os import path
 import sys
+import logging
 from .SymspellDictionary import SymspellDictionary
 
 def get_args():
@@ -16,8 +17,9 @@ def get_args():
 
 
 
-def _load_dictionary(dictionary_text,term_index, count_index,separator):
-    dictionary = SymspellDictionary()
+def _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator):
+    if dictionary is None:
+        dictionary = SymspellDictionary()
     line = dictionary_text.readline()
     while line:
         tokens= line.rstrip().split(separator)
@@ -27,16 +29,50 @@ def _load_dictionary(dictionary_text,term_index, count_index,separator):
             dictionary.create_dictionary_entry(term,count)
         line = dictionary_text.readline()
     return dictionary
+    
+def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,separator):
+    if dictionary is None:
+        dictionary = SymspellDictionary()
+    line = dictionary_text.readline()
+    while line:
+        tokens= line.rstrip().split(separator)
+        if len(tokens) > count_index:
+            # 2 terms
+            key = None
+            if len(tokens) > 2:
+                term1 = tokens[terms_index]
+                term2 = tokens[terms_index + 1]
+                key = "{term1} {term2}".format(term1=term1,term2=term2)
+            else:
+                key = tokens[terms_index]
+            count = int(tokens[count_index])
+            dictionary.create_bi_gram_entry(key,count)
+
+        line = dictionary_text.readline()
+    return dictionary
+
+def create_dictionary():
+    #TODO: Complete impl
+    pass
 
 
-def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=' '):
+# load dictionary of the format "<term> <count>"
+def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=' ',dictionary=None):
     if path.exists(dictionary_path) == False:
         print("Dictionary path {} does not exist".format(dictionary_path))
         sys.exit(-1)
     with open(dictionary_path, 'r', encoding="utf-8") as dictionary_text:
-        dictionary = _load_dictionary(dictionary_text,term_index,count_index,separator)
+        dictionary = _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator)
     return dictionary
 
+# load bi-gram dictionary of the format "<term1> <term2> <count>"
+def load_bi_gram_dictionary(dictionary_path,terms_index = 0,count_index = 2,separator=' ',dictionary=None):
+    if path.exists(dictionary_path) == False:
+        print("Dictionary path {} does not exist".format(dictionary_path))
+        sys.exit(-1)
+    with open(dictionary_path, 'r', encoding="utf-8") as dictionary_text:
+        dictionary = _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,separator)
+    return dictionary
 
 def main():
     args = get_args()

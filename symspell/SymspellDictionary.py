@@ -30,6 +30,10 @@ class SymspellDictionary:
             // Dictionary of unique correct spelling words, and the frequency count for each word.
         '''
         self.words = dict()
+        '''
+            // Dictionary of unique bigrams, and the frequency count for each word.
+        '''
+        self.bi_grams = dict()
 
     @staticmethod
     def _get_edits(word,edit_distance,words_set,max_dictionary_edit_distance):
@@ -77,6 +81,13 @@ class SymspellDictionary:
 
         return True
 
+
+    def create_bi_gram_entry(self,key,count):
+        if count < 0:
+            if self.count_threshold > 0:
+                return False
+        self.bi_grams[key] = count
+        return True
 
     '''
     <summary>Create/Update an entry in the dictionary.</summary>
