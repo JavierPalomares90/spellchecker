@@ -18,7 +18,7 @@ def get_args():
 
 def _load_dictionary(dictionary_text,term_index, count_index,separator):
     dictionary = SymspellDictionary()
-    line = dictionary_text.getline()
+    line = dictionary_text.readline()
     while line:
         tokens = line.split(separator)
         term = tokens[term_index]
