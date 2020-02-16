@@ -20,15 +20,16 @@ def _load_dictionary(dictionary_text,term_index, count_index,separator):
     dictionary = SymspellDictionary()
     line = dictionary_text.readline()
     while line:
-        tokens = line.split(separator)
-        term = tokens[term_index]
-        count = int(tokens[count_index])
-        SymspellDictionary.create_dictionary_entry(term,count)
+        tokens= line.rstrip().split(separator)
+        if len(tokens) > count_index:
+            term = tokens[term_index]
+            count = int(tokens[count_index])
+            SymspellDictionary.create_dictionary_entry(term,count)
         line = dictionary_text.getline()
     return dictionary
 
 
-def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=','):
+def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=' '):
     if path.exists(dictionary_path) == False:
         print("Dictionary path {} does not exist".format(dictionary_path))
         sys.exit(-1)
