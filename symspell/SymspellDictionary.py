@@ -99,7 +99,7 @@ class SymspellDictionary:
     existing correctly spelled word.</returns>
     '''
     def create_dictionary_entry(self,term,count,max_dictionary_edit_distance=2,prefix_length=7):
-        if count < 0:
+        if count < 1:
             if self.count_threshold > 0:
                 return False
         # look first in the below threshold words,

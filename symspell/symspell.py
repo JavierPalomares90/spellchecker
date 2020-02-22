@@ -7,6 +7,7 @@ from os import path
 import sys
 import logging
 from .SymspellDictionary import SymspellDictionary
+from utils import utils
 
 def get_args():
     parser = argparse.ArgumentParser(description="Symspell spelling correction arguments")
@@ -25,7 +26,7 @@ def _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator
         tokens= line.rstrip().split(separator)
         if len(tokens) > count_index:
             term = tokens[term_index]
-            count = int(tokens[count_index])
+            count = utils.parse_int(tokens[count_index])
             dictionary.create_dictionary_entry(term,count)
         line = dictionary_text.readline()
     return dictionary
