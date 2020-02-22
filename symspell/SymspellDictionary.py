@@ -216,6 +216,7 @@ class SymspellDictionary:
         edit_distance = DistanceAlgorithm.DistanceAlgorithm(algorithm)
         while candidate_index < len(candidates):
             candidate = candidates[candidate_index]
+            candidate_index = candidate_index + 1
             candidate_len = len(candidate)
             len_diff = input_prefix_len - candidate_len
             # if candidate distance is already higher than suggestion distance,
@@ -323,15 +324,15 @@ class SymspellDictionary:
                             #
             # add edits
             # derive edits from the input and add to the candidate list recursively
-            if len_diff < max_edit_distance and candidate_len < input_prefix_len:
+            if len_diff < max_edit_distance and candidate_len <= self.prefix_length:
                 # don't need to create edits with edit distance smaller than the suggestions already found
-                if verbosity is SymspellVerbosity.ALL and len_diff > max_edit_distance_candidate:
+                if verbosity is not SymspellVerbosity.ALL and len_diff > max_edit_distance_candidate:
                     continue
 
                 for i in range(candidate_len):
                     delete = candidate[0:i] + candidate[i+1:]
-                    if delete in deletes is False:
-                        deletes.add(delete)
+                    if delete not in deletes_considered:
+                        deletes_considered.add(delete)
                         candidates.add(delete)
             
         # sort by ascending edit distance
