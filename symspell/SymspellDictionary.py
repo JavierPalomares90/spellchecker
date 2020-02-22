@@ -256,7 +256,7 @@ class SymspellDictionary:
                     Two deletes on each side of a pair makes them all equal, but the first two pairs have edit distance=1, the others edit distance=2.
                     '''
                     distance = 0
-                    min = 0
+                    min_distance = 0
                     if candidate_len == 0:
                         distance = max(input_len,suggestion_len)
                         if distance > max_edit_distance_candidate:
