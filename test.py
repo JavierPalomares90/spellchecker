@@ -9,12 +9,10 @@ bigram_path = pkg_resources.resource_filename(
 dictionary = symspell.load_dictionary(dictionary_path)
 dictionary.lookup("whereis",verbosity=SymspellVerbosity.SymspellVerbosity.TOP,max_edit_distance=2,include_unknown=False)
 
-## TODO: Need to test bigrams
-#bigram_dictionary = symspell.load_bi_gram_dictionary(bigram_path,dictionary=dictionary)
-
 
 # lookup suggestions for multi-word input strings (supports compound
 # splitting & merging)
+bigram_dictionary = symspell.load_bi_gram_dictionary(bigram_path,dictionary=dictionary)
 input_term = ("whereis th elove hehad dated forImuch of thepast who "
               "couqdn'tread in sixtgrade and ins pired him")
 # max edit distance per lookup (per single word, not per whole input string)

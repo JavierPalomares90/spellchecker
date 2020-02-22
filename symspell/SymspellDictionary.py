@@ -6,6 +6,7 @@ from .SymspellSuggestion import SymspellSuggestion
 from .SymspellVerbosity import SymspellVerbosity
 from edit import DistanceAlgorithms
 from edit import DistanceAlgorithm
+import logging
 
 
 class SymspellDictionary:
@@ -13,6 +14,7 @@ class SymspellDictionary:
     def __init__(self,count_threshold = 1,max_dictionary_edit_distance=2, prefix_len = 7):
         self.count_threshold= count_threshold
         self.max_dictionary_word_length = 0
+        self.min_bi_gram_count = sys.maxsize
         self.max_dictionary_edit_distance = max_dictionary_edit_distance
         self.prefix_length = prefix_len
         '''
@@ -87,6 +89,8 @@ class SymspellDictionary:
             if self.count_threshold > 0:
                 return False
         self.bi_grams[key] = count
+        if count < self.min_bi_gram_count:
+            self.min_bi_gram_count = count
         return True
 
     '''
@@ -169,9 +173,9 @@ class SymspellDictionary:
 
     def lookup(self, input, verbosity,max_edit_distance, include_unknown):
         if max_edit_distance > self.max_dictionary_edit_distance:
-            print("Invalid edit distance")
+            logging.error("Invalid edit distance")
             sys.exit(-1)
-        suggestions = []
+        suggestions = list()
         input_len = len(input)
 
         # word is too long to possibly match any suggestions

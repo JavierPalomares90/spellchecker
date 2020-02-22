@@ -27,7 +27,8 @@ def _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator
         if len(tokens) > count_index:
             term = tokens[term_index]
             count = utils.parse_int(tokens[count_index])
-            dictionary.create_dictionary_entry(term,count)
+            if count:
+                dictionary.create_dictionary_entry(term,count)
         line = dictionary_text.readline()
     return dictionary
     
@@ -46,8 +47,9 @@ def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,
                 key = "{term1} {term2}".format(term1=term1,term2=term2)
             else:
                 key = tokens[terms_index]
-            count = int(tokens[count_index])
-            dictionary.create_bi_gram_entry(key,count)
+            count = utils.parse_int(tokens[count_index])
+            if count:
+                dictionary.create_bi_gram_entry(key,count)
 
         line = dictionary_text.readline()
     return dictionary
@@ -60,7 +62,7 @@ def create_dictionary():
 # load dictionary of the format "<term> <count>"
 def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=' ',dictionary=None):
     if path.exists(dictionary_path) == False:
-        print("Dictionary path {} does not exist".format(dictionary_path))
+        logging.error("Dictionary path {} does not exist".format(dictionary_path))
         sys.exit(-1)
     with open(dictionary_path, 'r', encoding="utf-8") as dictionary_text:
         dictionary = _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator)
@@ -69,7 +71,7 @@ def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=' 
 # load bi-gram dictionary of the format "<term1> <term2> <count>"
 def load_bi_gram_dictionary(dictionary_path,terms_index = 0,count_index = 2,separator=' ',dictionary=None):
     if path.exists(dictionary_path) == False:
-        print("Dictionary path {} does not exist".format(dictionary_path))
+        logging.error("Dictionary path {} does not exist".format(dictionary_path))
         sys.exit(-1)
     with open(dictionary_path, 'r', encoding="utf-8") as dictionary_text:
         dictionary = _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,separator)
