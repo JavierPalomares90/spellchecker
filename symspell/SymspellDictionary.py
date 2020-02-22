@@ -333,7 +333,7 @@ class SymspellDictionary:
                     delete = candidate[0:i] + candidate[i+1:]
                     if delete not in deletes_considered:
                         deletes_considered.add(delete)
-                        candidates.add(delete)
+                        candidates.append(delete)
             
         # sort by ascending edit distance
         if len(suggestions) > 1:
