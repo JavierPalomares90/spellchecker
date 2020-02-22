@@ -8,27 +8,24 @@ from .DistanceAlgorithms import DistanceAlgorithms
 Interface method for distance algos implementation
 '''
 class DistanceAlgorithm():
-    def __init__(self,distance_algo):
+    def __init__(self,distance_algorithm):
         # the distance algorithm to use
-        self.algorithm = distance_algo 
-        if distance_algo == DistanceAlgorithms.LEVENSHTEIN:
+        self.algorithm = distance_algorithm
+        if self.algorithm == DistanceAlgorithms.LEVENSHTEIN:
             self._distance_comparer = Levenshtein()
-        elif distance_algo == DistanceAlgorithms.DAMERUAUOSA:
+        elif self.algorithm == DistanceAlgorithms.DAMERUAUOSA:
             self._distance_comparer = Damerauosa()
         else:
             raise ValueError("Unknown distance algorithm")
 
-    def edit_distance(self, string_1, string_2):
-        raise NotImplementedError("Do not use this interface class. You must extend this class.")
+    def edit_distance(self, string1, string2):
+        return self._distance_comparer.edit_distance(string1,string2)
 
-    def get_distance(self, string_1, string_2):
-        return self.edit_distance(string_1,string_2)
+    def get_distance(self, string1, string2):
+        return self.edit_distance(string1,string2)
 
 # Implemenation of levenshtein distance
-class Levenshtein(DistanceAlgorithm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
+class Levenshtein():
     def edit_distance(self, str1, str2):
         #TODO: Need to figure out how to include the ratios in here
         return lev.distance(str1,str2)
@@ -37,7 +34,7 @@ class Levenshtein(DistanceAlgorithm):
 class Damerauosa(DistanceAlgorithm):
     def edit_distance(self, str1, str2):
         #TODO: Complete impl
-        pass
+        return 0
 
 class Fuzzy(DistanceAlgorithm):
     def edit_distance(self, str1, str2):
@@ -54,4 +51,4 @@ class Fuzzy(DistanceAlgorithm):
         print("I think you meant: {}".format(best))
         '''
         #TODO: Complete impl
-        pass
+        return 0
