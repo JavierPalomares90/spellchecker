@@ -296,9 +296,15 @@ class SymspellDictionary:
                         else:
                             # Delete In Suggestion Prefix is expensive computation
                             # Only use it when verbosity is Top or Closest
-                            if verbosity is SymspellVerbosity.TOP or verbosity is SymspellVerbosity.CLOSEST:
-                                #TODO: Complete impl
-                                pass
+                            if (verbosity is not SymspellVerbosity.ALL and \
+                                not self.delete_in_suggestion_prefix(candidate,candidate_len,suggestion,suggestion_len)) or\
+                                    suggestion in suggestions_considered:
+                                    continue
+
+                            suggestions_considered.add(suggestion)
+                            distance = edit_distance.edit_distance(input,suggestion)
+                            if distance < 0:
+                                continue
                     # Do not process higher distances than those
                     # already found if verbosity is not ALL.
                     # In that case, maxEditDistanceCandidate is equal to the maxEdiDistance
