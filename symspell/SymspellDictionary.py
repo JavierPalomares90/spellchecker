@@ -83,6 +83,11 @@ class SymspellDictionary:
 
         return True
 
+    @staticmethod
+    def _sort_suggestions(suggestions):
+        #TODO: Complete impl
+        pass
+
 
     def create_bi_gram_entry(self,key,count):
         if count < 0:
