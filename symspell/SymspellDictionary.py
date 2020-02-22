@@ -281,16 +281,17 @@ class SymspellDictionary:
                         then editdistance>maxEditDistance and no need for Levenshtein calculation  
                         (input_len >= prefix_len) && (suggestion_len >= prefix_len)
                         '''
-                        is_candidate_len = self.prefix_len - max_edit_distance == candidate_len
-                        min_len = min(input_len,suggestion_len)
-
-                        #TODO: Check this logic
-                        input_suggestion_test_1 = input[input_len + 1 - min_len:] != suggestion[suggestion_len + 1 - min_len]
-                        input_suggestion_test_2 = min_len > 0 and (input[input_len - min] != suggestion[suggestion_len - min])
-                        input_suggestion_test_3 = input[input_len - min - 1 ] != suggestion[suggestion_len - min]
-                        input_suggestion_test_4 = input[input_len - min] != suggestion[suggestion_len - min - 1]
-
-                        if is_candidate_len and ( min_len > 1 and (input_suggestion_test_1 or input_suggestion_test_2) and (input_suggestion_test_3 or input_suggestion_test_4)):
+                        if self.prefix_length - max_edit_distance == candidate_len:
+                            min_distance = min(input_len,suggestion_len) - self.prefix_length
+                        else:
+                            min_distance = 0
+                        if (self.prefix_length - max_edit_distance == candidate_len
+                                and (min_distance > 1
+                                        and input[input_len + 1 - min_distance :] != suggestion[suggestion_len + 1 - min_distance :])
+                                or (min_distance > 0
+                                    and input[input_len - min_distance] != suggestion[suggestion_len - min_distance]
+                                    and (input[input_len - min_distance - 1] != suggestion[suggestion_len - min_distance]
+                                            or input[input_len - min_distance] != suggestion[suggestion_len - min_distance - 1]))):
                             continue
                         else:
                             # Delete In Suggestion Prefix is expensive computation
