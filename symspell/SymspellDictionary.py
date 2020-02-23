@@ -58,11 +58,6 @@ class SymspellDictionary:
         hash = int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16) % 10 ** 8
         return hash
 
-    @staticmethod
-    def _sort_suggestions(suggestions):
-        #TODO: Complete impl
-        return suggestions 
-
 
     @staticmethod
     def _get_edits_prefix(term,max_dictionary_edit_distance,prefix_length):
@@ -85,8 +80,7 @@ class SymspellDictionary:
 
     @staticmethod
     def _sort_suggestions(suggestions):
-        #TODO: Complete impl
-        pass
+        suggestions.sort()
 
 
     def create_bi_gram_entry(self,key,count):
@@ -323,7 +317,7 @@ class SymspellDictionary:
                             # If verbosity is closest, calcute the DemLev distance only up ot the smallest found distance so far
                             if verbosity is SymspellVerbosity.CLOSEST:
                                 if distance < max_edit_distance_candidate:
-                                    suggestions = []
+                                    suggestions = list()
                             elif verbosity is SymspellVerbosity.TOP:
                                 if distance < max_edit_distance_candidate or suggestion_count > suggestions[0].count:
                                     max_edit_distance_candidate = distance
@@ -349,7 +343,7 @@ class SymspellDictionary:
             
         # sort by ascending edit distance
         if len(suggestions) > 1:
-            suggestions = _sort_suggestions(suggestions)
+            self._sort_suggestions(suggestions)
             if include_unknown is True and len(suggestions) == 0:
                 suggestions.add(SymspellSuggestion(input,max_edit_distance+1,0))
         return suggestions
