@@ -7,7 +7,7 @@ dictionary_path = pkg_resources.resource_filename(
 bigram_path = pkg_resources.resource_filename(
     "symspellpy", "frequency_bigramdictionary_en_243_342.txt")
 dictionary = symspell.load_dictionary(dictionary_path)
-dictionary.lookup("whereis",verbosity=SymspellVerbosity.SymspellVerbosity.TOP,max_edit_distance=2,include_unknown=False)
+suggestions = dictionary.lookup("whereis",verbosity=SymspellVerbosity.SymspellVerbosity.TOP,max_edit_distance=2,include_unknown=False)
 
 
 # lookup suggestions for multi-word input strings (supports compound

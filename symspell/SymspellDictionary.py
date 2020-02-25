@@ -186,6 +186,7 @@ class SymspellDictionary:
         suggestion_count = self.words.get(input)
         if suggestion_count:
             suggestion = SymspellSuggestion(input,0,suggestion_count)
+            logging.debug("Adding {} to suggestions".format(suggestion))
             suggestions.append(suggestion)
             return suggestions
 
@@ -224,10 +225,10 @@ class SymspellDictionary:
                 break
 
             # read candidate entry from the dictionary
-            suggestions = self.deletes.get(SymspellDictionary._get_string_hash(candidate))
+            dictionary_suggestions = self.deletes.get(SymspellDictionary._get_string_hash(candidate))
 
-            if suggestions:
-                for suggestion in suggestions:
+            if dictionary_suggestions:
+                for suggestion in dictionary_suggestions:
 
                     if suggestion == input:
                         continue
@@ -312,9 +313,9 @@ class SymspellDictionary:
                         suggestion_count = self.words[suggestion]
                         symspell_suggestion = SymspellSuggestion(suggestion,distance,suggestion_count)
                         
-                        if suggestion_count > 0:
+                        if suggestions:
 
-                            # If verbosity is closest, calcute the DemLev distance only up ot the smallest found distance so far
+                            # If verbosity is closest, calcute the DemLev distance only up to the smallest found distance so far
                             if verbosity is SymspellVerbosity.CLOSEST:
                                 if distance < max_edit_distance_candidate:
                                     suggestions = list()
@@ -325,6 +326,7 @@ class SymspellDictionary:
                                 continue
                         if verbosity is SymspellVerbosity.ALL:
                             max_edit_distance_candidate = distance
+                        logging.debug("Adding {} to suggestions".format(symspell_suggestion))
                         suggestions.append(symspell_suggestion)
 
                             #
@@ -345,7 +347,9 @@ class SymspellDictionary:
         if len(suggestions) > 1:
             self._sort_suggestions(suggestions)
             if include_unknown is True and len(suggestions) == 0:
-                suggestions.add(SymspellSuggestion(input,max_edit_distance+1,0))
+                symspell_suggestion = SymspellSuggestion(input,max_edit_distance+1,0)
+                logging.debug("Adding {} to suggestions".format(symspell_suggestion))
+                suggestions.add(symspell_suggestion)
         return suggestions
 
 

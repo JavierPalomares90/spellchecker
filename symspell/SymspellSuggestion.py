@@ -46,3 +46,7 @@ class SymspellSuggestion:
     def __ge__(self,other):
         return __eq__(self,other) or __gt__(self,other) 
 
+    def __str__(self):
+        to_string = "term:{} distance:{} count:{}".format(self.term,self.distance,self.count)
+        return to_string
+

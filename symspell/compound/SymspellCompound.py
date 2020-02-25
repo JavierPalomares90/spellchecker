@@ -22,8 +22,8 @@ class SymspellCompound(SymspellDictionary):
     
     def lookup_compound(input, max_edit_distance):
         terms = parse_words(input)
-        suggestions = []
-        suggestion_parts = []
+        suggestions = list()
+        suggestion_parts = list()
 
         edit_distance = EditDistance()
 
