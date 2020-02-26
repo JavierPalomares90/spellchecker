@@ -19,3 +19,6 @@ def parse_words(text):
 def get_string_hash(s):
     hash = int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16) % 10 ** 8
     return hash
+
+def sort_suggestions(suggestions):
+    suggestions.sort()

@@ -7,6 +7,7 @@ from os import path
 import sys
 import logging
 from .SymspellDictionary import SymspellDictionary
+from symspell.compound import SymspellCompound
 from utils import Utils
 
 def get_args():
@@ -35,6 +36,7 @@ def _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator
 def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,separator):
     if dictionary is None:
         dictionary = SymspellDictionary()
+    compound_dictionary = SymspellCompound()
     line = dictionary_text.readline()
     while line:
         tokens= line.rstrip().split(separator)
@@ -49,7 +51,7 @@ def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,
                 key = tokens[terms_index]
             count = Utils.parse_int(tokens[count_index])
             if count:
-                dictionary.create_bi_gram_entry(key,count)
+                compound_dictionary.create_bi_gram_entry(key,count)
 
         line = dictionary_text.readline()
     return dictionary

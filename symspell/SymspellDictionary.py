@@ -6,6 +6,7 @@ from .SymspellSuggestion import SymspellSuggestion
 from .SymspellVerbosity import SymspellVerbosity
 from edit import DistanceAlgorithms
 from edit import DistanceAlgorithm
+from utils import Utils
 import logging
 
 
@@ -54,12 +55,6 @@ class SymspellDictionary:
         return words_set
 
     @staticmethod
-    def _get_string_hash(s):
-        hash = int(hashlib.sha256(s.encode('utf-8')).hexdigest(), 16) % 10 ** 8
-        return hash
-
-
-    @staticmethod
     def _get_edits_prefix(term,max_dictionary_edit_distance,prefix_length):
         edits = set()
         if len(term) <= max_dictionary_edit_distance:
@@ -76,20 +71,6 @@ class SymspellDictionary:
     def delete_in_suggestion_prefix(delete,delete_len, suggestion,suggestion_len):
         #TODO: Complete impl
 
-        return True
-
-    @staticmethod
-    def _sort_suggestions(suggestions):
-        suggestions.sort()
-
-
-    def create_bi_gram_entry(self,key,count):
-        if count < 0:
-            if self.count_threshold > 0:
-                return False
-        self.bi_grams[key] = count
-        if count < self.min_bi_gram_count:
-            self.min_bi_gram_count = count
         return True
 
     '''
@@ -148,7 +129,7 @@ class SymspellDictionary:
             for delete in edits:
 
                 # get a hash key for the edit
-                delete_hash = SymspellDictionary._get_string_hash(delete)
+                delete_hash = Utils.get_string_hash(delete)
 
                 # add the term to the suggestions for each delete edit
                 suggestions = self.deletes.get(delete_hash)
@@ -169,7 +150,6 @@ class SymspellDictionary:
     or false if the word is added as a below threshold word, or updates an
     existing correctly spelled word.</returns>
     '''
-
     def lookup(self, input, verbosity,max_edit_distance, include_unknown):
         if max_edit_distance > self.max_dictionary_edit_distance:
             logging.error("Invalid edit distance")
@@ -225,7 +205,7 @@ class SymspellDictionary:
                 break
 
             # read candidate entry from the dictionary
-            dictionary_suggestions = self.deletes.get(SymspellDictionary._get_string_hash(candidate))
+            dictionary_suggestions = self.deletes.get(Utils.get_string_hash(candidate))
 
             if dictionary_suggestions:
                 for suggestion in dictionary_suggestions:
@@ -345,7 +325,7 @@ class SymspellDictionary:
             
         # sort by ascending edit distance
         if len(suggestions) > 1:
-            self._sort_suggestions(suggestions)
+            Utils.sort_suggestions(suggestions)
             if include_unknown is True and len(suggestions) == 0:
                 symspell_suggestion = SymspellSuggestion(input,max_edit_distance+1,0)
                 logging.debug("Adding {} to suggestions".format(symspell_suggestion))
