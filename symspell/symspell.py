@@ -36,7 +36,7 @@ def _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator
 def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,separator):
     if dictionary is None:
         dictionary = SymspellDictionary()
-    compound_dictionary = SymspellCompound()
+    compound_dictionary = SymspellCompound(dictionary)
     line = dictionary_text.readline()
     while line:
         tokens= line.rstrip().split(separator)
@@ -54,7 +54,7 @@ def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,
                 compound_dictionary.create_bi_gram_entry(key,count)
 
         line = dictionary_text.readline()
-    return dictionary
+    return compound_dictionary
 
 def create_dictionary():
     #TODO: Complete impl
