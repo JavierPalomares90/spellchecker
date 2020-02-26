@@ -320,11 +320,11 @@ class SymspellDictionary:
                                 if distance < max_edit_distance_candidate:
                                     suggestions = list()
                             elif verbosity is SymspellVerbosity.TOP:
-                                if distance < max_edit_distance_candidate or suggestion_count > suggestions[0].count:
+                                if (distance < max_edit_distance_candidate) or (suggestion_count > suggestions[0].count):
                                     max_edit_distance_candidate = distance
                                     suggestions[0] = symspell_suggestion
                                 continue
-                        if verbosity is SymspellVerbosity.ALL:
+                        if verbosity is not SymspellVerbosity.ALL:
                             max_edit_distance_candidate = distance
                         logging.debug("Adding {} to suggestions".format(symspell_suggestion))
                         suggestions.append(symspell_suggestion)
