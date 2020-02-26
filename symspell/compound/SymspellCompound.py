@@ -3,25 +3,22 @@
 from symspell.SymspellDictionary import SymspellDictionary
 from symspell.SymspellVerbosity import SymspellVerbosity
 from symspell.SymspellSuggestion import SymspellSuggestion
+from utils import Utils
 import re
 import sys
 
 class SymspellCompound(SymspellDictionary):
-    def __init__(self, count_threshold=1, max_dictionary_edit_distance=2, prefix_len=7):
+    def __init__(self, symspell_dictionary,count_threshold=1, max_dictionary_edit_distance=2, prefix_len=7):
         #TODO: Populate bigram
-        self.bigrams = dict()
+        self.bi_grams = dict()
+        self.symspell_dictionary = symspell_dictionary
         self.bigram_count_min = sys.maxsize
-        super().__init__(count_threshold=count_threshold, max_dictionary_edit_distance=max_dictionary_edit_distance, prefix_len=prefix_len)
 
-    def lookup_compound(input):
+    def lookup_compound(self,input):
         return lookup_compound(input,self.max_dictionary_edit_distance)
 
-    @staticmethod
-    def parse_words(text):
-        return re.findall('[A-Za-z\']+(?:\`[A-Za-z]+)?',text.lower())
-    
-    def lookup_compound(input, max_edit_distance):
-        terms = parse_words(input)
+    def lookup_compound(self,input, max_edit_distance):
+        terms = Utils.parse_words(input)
         suggestions = list()
         suggestion_parts = list()
 

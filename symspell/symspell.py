@@ -7,7 +7,7 @@ from os import path
 import sys
 import logging
 from .SymspellDictionary import SymspellDictionary
-from utils import utils
+from utils import Utils
 
 def get_args():
     parser = argparse.ArgumentParser(description="Symspell spelling correction arguments")
@@ -26,7 +26,7 @@ def _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator
         tokens= line.rstrip().split(separator)
         if len(tokens) > count_index:
             term = tokens[term_index]
-            count = utils.parse_int(tokens[count_index])
+            count = Utils.parse_int(tokens[count_index])
             if count:
                 dictionary.create_dictionary_entry(term,count)
         line = dictionary_text.readline()
@@ -47,7 +47,7 @@ def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,
                 key = "{term1} {term2}".format(term1=term1,term2=term2)
             else:
                 key = tokens[terms_index]
-            count = utils.parse_int(tokens[count_index])
+            count = Utils.parse_int(tokens[count_index])
             if count:
                 dictionary.create_bi_gram_entry(key,count)
 
