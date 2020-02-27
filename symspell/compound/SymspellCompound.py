@@ -41,11 +41,11 @@ class SymspellCompound(SymspellDictionary):
         num_terms = len(terms)
 
         for i in range(num_terms):
-            suggestions = super().lookup(terms[i],SymspellVerbosity.TOP,max_edit_distance)
+            suggestions = self.symspell_dictionary.lookup(terms[i],SymspellVerbosity.TOP,max_edit_distance)
 
             # check for combination
             if i > 0 and terms_combined is False:
-                suggestions_for_combination = super.lookup(terms[i-1] + terms[i],SymspellVerbosity.TOP,max_edit_distance)
+                suggestions_for_combination = self.symspell_dictionary.lookup(terms[i-1] + terms[i],SymspellVerbosity.TOP,max_edit_distance)
 
                 if len(suggestions_for_combination) > 0:
                     best1 = suggestion_parts[len(suggestions_for_combination) - 1]
@@ -74,7 +74,7 @@ class SymspellCompound(SymspellDictionary):
             terms_combined = False
 
             # always split terms without suggestion. Don't split terms with suggestions. Don't split single char terms
-            if (len(suggestions) > 0 and (suggestions[0].distance == 0 or len(terms[i]) == 1 )):
+            if (suggestions and (suggestions[0].distance == 0 or len(terms[i]) == 1 )):
                 # choose the best suggestion
                 suggestion_parts.append(suggestions[0])
             else:
@@ -84,11 +84,12 @@ class SymspellCompound(SymspellDictionary):
                 if len(suggestions) > 0:
                     suggestion_split_best = suggestions[0]
                 
-                if len(terms[i]) > 1:
+                first_term_len = len(terms[i]) 
+                if first_term_len > 1:
 
-                    for j in range(len(terms)):
-                        part1 = (terms[i])[0:j]
-                        part2 = (terms[i])[j:]
+                    for j in range(1,first_term_len):
+                        part1 = terms[i][:j]
+                        part2 = terms[i][j:]
                         suggestions_split = SymspellSuggestion()
                         suggestions1 = super().lookup(part1,SymspellVerbosity.TOP,max_edit_distance)
 
@@ -159,7 +160,6 @@ class SymspellCompound(SymspellDictionary):
 
         suggestion.count = count
         suggestion.term = s
-        #TODO: implement edit_distance compare
         suggestion.distance = edit_distance.compare(input,suggestion.term,sys.maxsize)
 
         suggestions_line = list()

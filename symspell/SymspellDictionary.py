@@ -150,7 +150,7 @@ class SymspellDictionary:
     or false if the word is added as a below threshold word, or updates an
     existing correctly spelled word.</returns>
     '''
-    def lookup(self, input, verbosity,max_edit_distance, include_unknown):
+    def lookup(self, input, verbosity,max_edit_distance, include_unknown=False):
         if max_edit_distance > self.max_dictionary_edit_distance:
             logging.error("Invalid edit distance")
             sys.exit(-1)

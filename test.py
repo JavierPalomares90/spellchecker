@@ -12,11 +12,12 @@ suggestions = dictionary.lookup("whereis",verbosity=SymspellVerbosity.SymspellVe
 
 # lookup suggestions for multi-word input strings (supports compound
 # splitting & merging)
-bigram_dictionary = symspell.load_bi_gram_dictionary(bigram_path,dictionary=dictionary)
+corpus_size = 1024908267229
+bigram_dictionary = symspell.load_bi_gram_dictionary(bigram_path,corpus_size,dictionary=dictionary)
 input_term = ("whereis th elove hehad dated forImuch of thepast who "
               "couqdn'tread in sixtgrade and ins pired him")
 # max edit distance per lookup (per single word, not per whole input string)
-suggestions = dictionary.lookup_compound(input_term, max_edit_distance=2)
+suggestions = bigram_dictionary.lookup_compound(input_term, max_edit_distance=2)
 # display suggestion term, edit distance, and term frequency
 for suggestion in suggestions:
     print(suggestion)

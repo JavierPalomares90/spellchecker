@@ -7,7 +7,7 @@ from os import path
 import sys
 import logging
 from .SymspellDictionary import SymspellDictionary
-from symspell.compound import SymspellCompound
+from symspell.compound.SymspellCompound import SymspellCompound
 from utils import Utils
 
 def get_args():
@@ -33,10 +33,10 @@ def _load_dictionary(dictionary,dictionary_text,term_index,count_index,separator
         line = dictionary_text.readline()
     return dictionary
     
-def _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,separator):
+def _load_bi_gram_dictionary(dictionary,corpus_size,dictionary_text,terms_index,count_index,separator):
     if dictionary is None:
         dictionary = SymspellDictionary()
-    compound_dictionary = SymspellCompound(dictionary)
+    compound_dictionary = SymspellCompound(dictionary,corpus_size)
     line = dictionary_text.readline()
     while line:
         tokens= line.rstrip().split(separator)
@@ -71,12 +71,12 @@ def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=' 
     return dictionary
 
 # load bi-gram dictionary of the format "<term1> <term2> <count>"
-def load_bi_gram_dictionary(dictionary_path,terms_index = 0,count_index = 2,separator=' ',dictionary=None):
+def load_bi_gram_dictionary(dictionary_path,corpus_size,terms_index = 0,count_index = 2,separator=' ',dictionary=None):
     if path.exists(dictionary_path) == False:
         logging.error("Dictionary path {} does not exist".format(dictionary_path))
         sys.exit(-1)
     with open(dictionary_path, 'r', encoding="utf-8") as dictionary_text:
-        dictionary = _load_bi_gram_dictionary(dictionary,dictionary_text,terms_index,count_index,separator)
+        dictionary = _load_bi_gram_dictionary(dictionary,corpus_size,dictionary_text,terms_index,count_index,separator)
     return dictionary
 
 def main():
