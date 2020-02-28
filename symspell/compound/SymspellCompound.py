@@ -62,7 +62,6 @@ class SymspellCompound(SymspellDictionary):
                         best2.count = 10.0 / (10.0 ** len(best2.term))
                     # distance1 = distance between 2 split terms and their best corrections
                     distance1 = best1.distance + best2.distance
-                    #TODO: waht the hell is N?
                     if ((distance1 > 0 ) and \
                         ((suggestions_for_combination[0].distance + 1 < distance1) 
                         or ((suggestions_for_combination[0].distance + 1 == distance1) and
@@ -81,7 +80,7 @@ class SymspellCompound(SymspellDictionary):
                 # no perfect suggestion, split the word into parts
                 suggestion_split_best = None
 
-                if len(suggestions) > 0:
+                if suggestions:
                     suggestion_split_best = suggestions[0]
                 
                 first_term_len = len(terms[i]) 
@@ -123,8 +122,7 @@ class SymspellCompound(SymspellDictionary):
                                         
                                         # remove the single term from suggestions_split
                                         if (suggestions1[0].term + suggestions2[0].term == terms[i]):
-                                            # TODO: Check why +2 here
-                                            suggestion_split.count = max(suggestion_split.count,len(suggestions[0]) + 2)
+                                            suggestion_split.count = max(suggestion_split.count,suggestion_split_best.count + 2)
                                         elif ((suggestions1[0].term == suggestions[0].term ) or suggestions2[0].term == suggestions[0].term):
                                             # make count bigger than the count of a single term correction
                                             suggestion_split.count = max(suggestion_split.count,suggestions[0].count + 1)
@@ -140,7 +138,6 @@ class SymspellCompound(SymspellDictionary):
                                     suggestion_split_best = suggestion_split
                     pass
                     if suggestion_split_best is not None:
-                        #TODO: WTF is suggestion_parts
                         suggestion_parts.append(suggestion_split_best)
                     else:
                         si = SymspellSuggestion()
