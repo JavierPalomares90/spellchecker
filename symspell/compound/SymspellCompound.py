@@ -25,16 +25,16 @@ class SymspellCompound(SymspellDictionary):
             self.min_bi_gram_count = count
         return True
 
-    def lookup_compound(self,input):
-        return lookup_compound(input,self.max_dictionary_edit_distance)
+    def lookup_compound(self,input_term):
+        return lookup_compound(input_term,self.max_dictionary_edit_distance)
 
-    def lookup_compound(self,input, max_edit_distance):
+    def lookup_compound(self,input_term, max_edit_distance):
         suggestions = list()
         suggestion_parts = list()
 
         algorithm = DistanceAlgorithms.DistanceAlgorithms.LEVENSHTEIN
         edit_distance = DistanceAlgorithm.DistanceAlgorithm(algorithm)
-        terms = Utils.parse_words(input)
+        terms = Utils.parse_words(input_term)
 
         # get the best suggestion for each term, else leave it as is.
         terms_combined = False
@@ -96,26 +96,27 @@ class SymspellCompound(SymspellDictionary):
                             suggestions2 = self.symspell_dictionary.lookup(part2,SymspellVerbosity.TOP,max_edit_distance)
                             
                             if len(suggestions2) > 0:
+                                suggestion_split = SymspellSuggestion()
                                 # select best suggestion for split pair
                                 suggestion_split.term = suggestions1[0].term + " " + suggestions2[0].term
 
-                                distance2 = edit_distance.compare(terms[i],suggestion_split_best.term,max_edit_distance)
-                                if distance2 < 0:
-                                    distance2 = max_edit_distance + 1
+                                suggestions_split_distance = edit_distance.edit_distance(terms[i],suggestion_split.term)
+                                if suggestions_split_distance < 0:
+                                    suggestions_split_distance = max_edit_distance + 1
                                 
                                 if suggestion_split_best is not None:
-                                    if distance2 > suggestion_split_best.distance:
+                                    if suggestions_split_distance > suggestion_split_best.distance:
                                         continue
-                                    if distance2 < suggestion_split_best.distance:
+                                    if suggestions_split_distance < suggestion_split_best.distance:
                                         suggestion_split_best = None
 
-                                suggestion_split.distance = distance2
+                                suggestion_split.distance = suggestions_split_distance 
                                 # if bigram exists in bigram dictionary
-                                bigram_count = self.bigrams[suggestion_split.term] 
+                                bigram_count = self.bi_grams[suggestion_split.term] 
                                 if bigram_count is not None:
                                     suggestion_split.count = bigram_count
 
-                                    # increaase count if split corrections are part of or idential to input
+                                    # increase count if split corrections are part of or idential to input
 
                                     # single term correction exists
                                     if len(suggestions) > 0:
@@ -124,17 +125,17 @@ class SymspellCompound(SymspellDictionary):
                                         if (suggestions1[0].term + suggestions2[0].term == terms[i]):
                                             # TODO: Check why +2 here
                                             suggestion_split.count = max(suggestion_split.count,len(suggestions[0]) + 2)
-                                        elif ((suggestions1[0].term == suggestions[0].term ) or suggestion2[0].term == suggestions[0].term):
+                                        elif ((suggestions1[0].term == suggestions[0].term ) or suggestions2[0].term == suggestions[0].term):
                                             # make count bigger than the count of a single term correction
                                             suggestion_split.count = max(suggestion_split.count,suggestions[0].count + 1)
                                     elif (suggestions1[0].term + suggestions2[0].term == terms[i]):
                                         # no single term correction exists
-                                        suggestions_split.count = max(suggestion_split.count, max(suggestions1[0].count,suggestion2[0].count) + 2)
+                                        suggestions_split.count = max(suggestion_split.count, max(suggestions1[0].count,suggestions2[0].count) + 2)
                                 else:
                                     # The Bayes's prob of the word combination is the product of the 2 word probs
                                     # P(A B) = P(A) * P(B)
                                     # use it to estimate the frequency count of the combination which is then used to rank the best splitting variatn
-                                    suggestion_split.count = min(self.bigram_count_min,( suggestions1[0].count / Symspell.N * suggestions2[0].count) )
+                                    suggestion_split.count = min(self.bigram_count_min,( suggestions1[0].count / self.N * suggestions2[0].count) )
                                 if (suggestion_split_best is None or suggestion_split.count > suggestion_split_best.count ):
                                     suggestion_split_best = suggestion_split
                     pass
@@ -147,19 +148,17 @@ class SymspellCompound(SymspellDictionary):
                         # estimate the word probability
                         si.count = 10 / (10 ** len(si.term))
                         si.distance = max_edit_distance + 1
-                        #TODO Where is suggestion_parts defined
                         suggestion_parts.append(si)
         suggestion = SymspellSuggestion()
-        #TODO: Fix N
-        count = Symspell.N
+        count = self.N
         s = ''
-        for si in suggestions_parts:
+        for si in suggestion_parts:
             s = s + si.term + " "
-            count = count * (si.count /Symspell.N)
+            count = count * (si.count / self.N)
 
         suggestion.count = count
         suggestion.term = s
-        suggestion.distance = edit_distance.compare(input,suggestion.term,sys.maxsize)
+        suggestion.distance = edit_distance.compare(input_term,suggestion.term,sys.maxsize)
 
         suggestions_line = list()
         suggestions_line.append(suggestion)
