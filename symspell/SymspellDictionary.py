@@ -289,7 +289,7 @@ class SymspellDictionary:
                     # already found if verbosity is not ALL.
                     # In that case, maxEditDistanceCandidate is equal to the maxEdiDistance
 
-                    if  distance < max_edit_distance_candidate:
+                    if  distance <= max_edit_distance_candidate:
                         suggestion_count = self.words[suggestion]
                         symspell_suggestion = SymspellSuggestion(suggestion,distance,suggestion_count)
                         
