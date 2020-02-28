@@ -150,12 +150,12 @@ class SymspellDictionary:
     or false if the word is added as a below threshold word, or updates an
     existing correctly spelled word.</returns>
     '''
-    def lookup(self, input, verbosity,max_edit_distance, include_unknown=False):
+    def lookup(self, input_term, verbosity,max_edit_distance, include_unknown=False):
         if max_edit_distance > self.max_dictionary_edit_distance:
             logging.error("Invalid edit distance")
             sys.exit(-1)
         suggestions = list()
-        input_len = len(input)
+        input_len = len(input_term)
 
         # word is too long to possibly match any suggestions
         if input_len - max_edit_distance > self.max_dictionary_word_length:
@@ -163,9 +163,9 @@ class SymspellDictionary:
 
         num_suggestions = 0
         # quick look for an exact match
-        suggestion_count = self.words.get(input)
+        suggestion_count = self.words.get(input_term)
         if suggestion_count:
-            suggestion = SymspellSuggestion(input,0,suggestion_count)
+            suggestion = SymspellSuggestion(input_term,0,suggestion_count)
             logging.debug("Adding {} to suggestions".format(suggestion))
             suggestions.append(suggestion)
             return suggestions
@@ -177,7 +177,7 @@ class SymspellDictionary:
         suggestions_considered = set()
 
         # we considered the input as a suggestion
-        suggestions_considered.add(input)
+        suggestions_considered.add(input_term)
         max_edit_distance_candidate = max_edit_distance
         candidate_index = 0
         single_suggestion = ''
@@ -187,9 +187,9 @@ class SymspellDictionary:
         input_prefix_len = input_len
         if input_prefix_len > self.prefix_length:
             input_prefix_len = self.prefix_length
-            candidates.append(input[:input_prefix_len])
+            candidates.append(input_term[:input_prefix_len])
         else:
-            candidates.append(input)
+            candidates.append(input_term)
 
         # Use the levenshtein distance
         algorithm = DistanceAlgorithms.DistanceAlgorithms.LEVENSHTEIN
@@ -210,7 +210,7 @@ class SymspellDictionary:
             if dictionary_suggestions:
                 for suggestion in dictionary_suggestions:
 
-                    if suggestion == input:
+                    if suggestion == input_term:
                         continue
                     suggestion_len = len(suggestion)
 
@@ -246,7 +246,7 @@ class SymspellDictionary:
                         suggestions_considered.add(suggestion)
 
                     elif suggestion_len == 1:
-                        if input.find(suggestion[:1]) < 0:
+                        if input_term.find(suggestion[:1]) < 0:
                             distance = input_len
                         else:
                             distance = input_len - 1
@@ -267,11 +267,11 @@ class SymspellDictionary:
                             min_distance = 0
                         if (self.prefix_length - max_edit_distance == candidate_len
                                 and (min_distance > 1
-                                        and input[input_len + 1 - min_distance :] != suggestion[suggestion_len + 1 - min_distance :])
+                                        and input_term[input_len + 1 - min_distance :] != suggestion[suggestion_len + 1 - min_distance :])
                                 or (min_distance > 0
-                                    and input[input_len - min_distance] != suggestion[suggestion_len - min_distance]
-                                    and (input[input_len - min_distance - 1] != suggestion[suggestion_len - min_distance]
-                                            or input[input_len - min_distance] != suggestion[suggestion_len - min_distance - 1]))):
+                                    and input_term[input_len - min_distance] != suggestion[suggestion_len - min_distance]
+                                    and (input_term[input_len - min_distance - 1] != suggestion[suggestion_len - min_distance]
+                                            or input_term[input_len - min_distance] != suggestion[suggestion_len - min_distance - 1]))):
                             continue
                         else:
                             # Delete In Suggestion Prefix is expensive computation
@@ -282,7 +282,7 @@ class SymspellDictionary:
                                     continue
 
                             suggestions_considered.add(suggestion)
-                            distance = edit_distance.edit_distance(input,suggestion)
+                            distance = edit_distance.edit_distance(input_term,suggestion)
                             if distance < 0:
                                 continue
                     # Do not process higher distances than those
@@ -327,7 +327,7 @@ class SymspellDictionary:
         if len(suggestions) > 1:
             Utils.sort_suggestions(suggestions)
             if include_unknown is True and len(suggestions) == 0:
-                symspell_suggestion = SymspellSuggestion(input,max_edit_distance+1,0)
+                symspell_suggestion = SymspellSuggestion(input_term,max_edit_distance+1,0)
                 logging.debug("Adding {} to suggestions".format(symspell_suggestion))
                 suggestions.add(symspell_suggestion)
         return suggestions

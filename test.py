@@ -23,3 +23,4 @@ for suggestion in suggestions:
     print(suggestion)
 
 
+input_term
