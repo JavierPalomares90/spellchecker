@@ -90,17 +90,16 @@ class SymspellCompound(SymspellDictionary):
                     for j in range(1,first_term_len):
                         part1 = terms[i][:j]
                         part2 = terms[i][j:]
-                        suggestions_split = SymspellSuggestion()
-                        suggestions1 = super().lookup(part1,SymspellVerbosity.TOP,max_edit_distance)
+                        suggestions1 = self.symspell_dictionary.lookup(part1,SymspellVerbosity.TOP,max_edit_distance)
 
                         if len(suggestions1) > 0:
-                            suggestions2 = super().lookup(part2,SymspellVerbosity.TOP,max_edit_distance)
+                            suggestions2 = self.symspell_dictionary.lookup(part2,SymspellVerbosity.TOP,max_edit_distance)
                             
                             if len(suggestions2) > 0:
                                 # select best suggestion for split pair
                                 suggestion_split.term = suggestions1[0].term + " " + suggestions2[0].term
 
-                                distance2 = edit_distance.compare(terms[i],suggestion_split.term,max_edit_distance)
+                                distance2 = edit_distance.compare(terms[i],suggestion_split_best.term,max_edit_distance)
                                 if distance2 < 0:
                                     distance2 = max_edit_distance + 1
                                 
