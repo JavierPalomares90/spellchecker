@@ -203,125 +203,125 @@ class SymspellDictionary:
             # then there are no better suggestions to be expected
             if len_diff > max_edit_distance_candidate:
                 break
+            if candidate in self.deletes:
+                # read candidate entry from the dictionary
+                dictionary_suggestions = self.deletes.get(Utils.get_string_hash(candidate))
 
-            # read candidate entry from the dictionary
-            dictionary_suggestions = self.deletes.get(Utils.get_string_hash(candidate))
+                if dictionary_suggestions:
+                    for suggestion in dictionary_suggestions:
 
-            if dictionary_suggestions:
-                for suggestion in dictionary_suggestions:
-
-                    if suggestion == input_term:
-                        continue
-                    suggestion_len = len(suggestion)
-
-                    # input and suggestion lengths differ more than the allowed best distance
-                    if ((abs(suggestion_len - input_len) > max_edit_distance_candidate) or \
-                        # suggestion must be for a different delete string, in same bin only because of hash collision
-                        (suggestion_len < candidate_len) or \
-                        # if suggestion len = candidate len, then it either equals delete or is in same bin only because of hash collision
-                        (suggestion_len == candidate_len and suggestion != candidate)):
-                        continue
-                    suggestion_prefix_len = min(suggestion_len,self.prefix_length)
-
-                    if suggestion_prefix_len > input_prefix_len and (suggestion_prefix_len - candidate_len) > max_edit_distance_candidate:
-                        continue
-
-                    '''
-                    True Damerau-Levenshtein Edit Distance: adjust distance, if both distances>0
-                    We allow simultaneous edits (deletes) of maxEditDistance on on both the dictionary and the input term. 
-                    For replaces and adjacent transposes the resulting edit distance stays <= maxEditDistance.
-                    For inserts and deletes the resulting edit distance might exceed maxEditDistance.
-                    To prevent suggestions of a higher edit distance, we need to calculate the resulting edit distance, if there are simultaneous edits on both sides.
-                    Example: (bank==bnak and bank==bink, but bank!=kanb and bank!=xban and bank!=baxn for maxEditDistance=1)
-                    Two deletes on each side of a pair makes them all equal, but the first two pairs have edit distance=1, the others edit distance=2.
-                    '''
-                    distance = 0
-                    min_distance = 0
-                    if candidate_len == 0:
-                        distance = max(input_len,suggestion_len)
-                        if distance > max_edit_distance_candidate:
+                        if suggestion == input_term:
                             continue
-                        if suggestion in suggestions_considered:
-                            continue
-                        suggestions_considered.add(suggestion)
+                        suggestion_len = len(suggestion)
 
-                    elif suggestion_len == 1:
-                        if input_term.find(suggestion[:1]) < 0:
-                            distance = input_len
-                        else:
-                            distance = input_len - 1
-                        if distance > max_edit_distance_candidate:
+                        # input and suggestion lengths differ more than the allowed best distance
+                        if ((abs(suggestion_len - input_len) > max_edit_distance_candidate) or \
+                            # suggestion must be for a different delete string, in same bin only because of hash collision
+                            (suggestion_len < candidate_len) or \
+                            # if suggestion len = candidate len, then it either equals delete or is in same bin only because of hash collision
+                            (suggestion_len == candidate_len and suggestion != candidate)):
                             continue
-                        if suggestion in suggestions_considered:
+                        suggestion_prefix_len = min(suggestion_len,self.prefix_length)
+
+                        if suggestion_prefix_len > input_prefix_len and (suggestion_prefix_len - candidate_len) > max_edit_distance_candidate:
                             continue
-                        suggestions_considered.add(suggestion)
-                    else:
+
                         '''
-                        number of edits in prefix ==maxediddistance  AND no identic suffix,
-                        then editdistance>maxEditDistance and no need for Levenshtein calculation  
-                        (input_len >= prefix_len) && (suggestion_len >= prefix_len)
+                        True Damerau-Levenshtein Edit Distance: adjust distance, if both distances>0
+                        We allow simultaneous edits (deletes) of maxEditDistance on on both the dictionary and the input term. 
+                        For replaces and adjacent transposes the resulting edit distance stays <= maxEditDistance.
+                        For inserts and deletes the resulting edit distance might exceed maxEditDistance.
+                        To prevent suggestions of a higher edit distance, we need to calculate the resulting edit distance, if there are simultaneous edits on both sides.
+                        Example: (bank==bnak and bank==bink, but bank!=kanb and bank!=xban and bank!=baxn for maxEditDistance=1)
+                        Two deletes on each side of a pair makes them all equal, but the first two pairs have edit distance=1, the others edit distance=2.
                         '''
-                        if self.prefix_length - max_edit_distance == candidate_len:
-                            min_distance = min(input_len,suggestion_len) - self.prefix_length
-                        else:
-                            min_distance = 0
-                        if (self.prefix_length - max_edit_distance == candidate_len
-                                and (min_distance > 1
-                                        and input_term[input_len + 1 - min_distance :] != suggestion[suggestion_len + 1 - min_distance :])
-                                or (min_distance > 0
-                                    and input_term[input_len - min_distance] != suggestion[suggestion_len - min_distance]
-                                    and (input_term[input_len - min_distance - 1] != suggestion[suggestion_len - min_distance]
-                                            or input_term[input_len - min_distance] != suggestion[suggestion_len - min_distance - 1]))):
-                            continue
-                        else:
-                            # Delete In Suggestion Prefix is expensive computation
-                            # Only use it when verbosity is Top or Closest
-                            if (verbosity is not SymspellVerbosity.ALL and \
-                                not self.delete_in_suggestion_prefix(candidate,candidate_len,suggestion,suggestion_len)) or\
-                                    suggestion in suggestions_considered:
-                                    continue
-
+                        distance = 0
+                        min_distance = 0
+                        if candidate_len == 0:
+                            distance = max(input_len,suggestion_len)
+                            if distance > max_edit_distance_candidate:
+                                continue
+                            if suggestion in suggestions_considered:
+                                continue
                             suggestions_considered.add(suggestion)
-                            distance = edit_distance.edit_distance(input_term,suggestion)
-                            if distance < 0:
+
+                        elif suggestion_len == 1:
+                            if input_term.find(suggestion[:1]) < 0:
+                                distance = input_len
+                            else:
+                                distance = input_len - 1
+                            if distance > max_edit_distance_candidate:
                                 continue
-                    # Do not process higher distances than those
-                    # already found if verbosity is not ALL.
-                    # In that case, maxEditDistanceCandidate is equal to the maxEdiDistance
-
-                    if  distance <= max_edit_distance_candidate:
-                        suggestion_count = self.words[suggestion]
-                        symspell_suggestion = SymspellSuggestion(suggestion,distance,suggestion_count)
-                        
-                        if suggestions:
-
-                            # If verbosity is closest, calcute the DemLev distance only up to the smallest found distance so far
-                            if verbosity is SymspellVerbosity.CLOSEST:
-                                if distance < max_edit_distance_candidate:
-                                    suggestions = list()
-                            elif verbosity is SymspellVerbosity.TOP:
-                                if (distance < max_edit_distance_candidate) or (suggestion_count > suggestions[0].count):
-                                    max_edit_distance_candidate = distance
-                                    suggestions[0] = symspell_suggestion
+                            if suggestion in suggestions_considered:
                                 continue
-                        if verbosity is not SymspellVerbosity.ALL:
-                            max_edit_distance_candidate = distance
-                        logging.debug("Adding {} to suggestions".format(symspell_suggestion))
-                        suggestions.append(symspell_suggestion)
+                            suggestions_considered.add(suggestion)
+                        else:
+                            '''
+                            number of edits in prefix ==maxediddistance  AND no identic suffix,
+                            then editdistance>maxEditDistance and no need for Levenshtein calculation  
+                            (input_len >= prefix_len) && (suggestion_len >= prefix_len)
+                            '''
+                            if self.prefix_length - max_edit_distance == candidate_len:
+                                min_distance = min(input_len,suggestion_len) - self.prefix_length
+                            else:
+                                min_distance = 0
+                            if (self.prefix_length - max_edit_distance == candidate_len
+                                    and (min_distance > 1
+                                            and input_term[input_len + 1 - min_distance :] != suggestion[suggestion_len + 1 - min_distance :])
+                                    or (min_distance > 0
+                                        and input_term[input_len - min_distance] != suggestion[suggestion_len - min_distance]
+                                        and (input_term[input_len - min_distance - 1] != suggestion[suggestion_len - min_distance]
+                                                or input_term[input_len - min_distance] != suggestion[suggestion_len - min_distance - 1]))):
+                                continue
+                            else:
+                                # Delete In Suggestion Prefix is expensive computation
+                                # Only use it when verbosity is Top or Closest
+                                if (verbosity is not SymspellVerbosity.ALL and \
+                                    not self.delete_in_suggestion_prefix(candidate,candidate_len,suggestion,suggestion_len)) or\
+                                        suggestion in suggestions_considered:
+                                        continue
 
-                            #
-            # add edits
-            # derive edits from the input and add to the candidate list recursively
-            if len_diff < max_edit_distance and candidate_len <= self.prefix_length:
-                # don't need to create edits with edit distance smaller than the suggestions already found
-                if verbosity is not SymspellVerbosity.ALL and len_diff > max_edit_distance_candidate:
-                    continue
+                                suggestions_considered.add(suggestion)
+                                distance = edit_distance.edit_distance(input_term,suggestion)
+                                if distance < 0:
+                                    continue
+                        # Do not process higher distances than those
+                        # already found if verbosity is not ALL.
+                        # In that case, maxEditDistanceCandidate is equal to the maxEdiDistance
 
-                for i in range(candidate_len):
-                    delete = candidate[0:i] + candidate[i+1:]
-                    if delete not in deletes_considered:
-                        deletes_considered.add(delete)
-                        candidates.append(delete)
+                        if  distance <= max_edit_distance_candidate:
+                            suggestion_count = self.words[suggestion]
+                            symspell_suggestion = SymspellSuggestion(suggestion,distance,suggestion_count)
+                            
+                            if suggestions:
+
+                                # If verbosity is closest, calcute the DemLev distance only up to the smallest found distance so far
+                                if verbosity is SymspellVerbosity.CLOSEST:
+                                    if distance < max_edit_distance_candidate:
+                                        suggestions = list()
+                                elif verbosity is SymspellVerbosity.TOP:
+                                    if (distance < max_edit_distance_candidate) or (suggestion_count > suggestions[0].count):
+                                        max_edit_distance_candidate = distance
+                                        suggestions[0] = symspell_suggestion
+                                    continue
+                            if verbosity is not SymspellVerbosity.ALL:
+                                max_edit_distance_candidate = distance
+                            logging.debug("Adding {} to suggestions".format(symspell_suggestion))
+                            suggestions.append(symspell_suggestion)
+
+                                #
+                # add edits
+                # derive edits from the input and add to the candidate list recursively
+                if len_diff < max_edit_distance and candidate_len <= self.prefix_length:
+                    # don't need to create edits with edit distance smaller than the suggestions already found
+                    if verbosity is not SymspellVerbosity.ALL and len_diff > max_edit_distance_candidate:
+                        continue
+
+                    for i in range(candidate_len):
+                        delete = candidate[0:i] + candidate[i+1:]
+                        if delete not in deletes_considered:
+                            deletes_considered.add(delete)
+                            candidates.append(delete)
             
         # sort by ascending edit distance
         if len(suggestions) > 1:
