@@ -122,7 +122,7 @@ class SymspellCompound(SymspellDictionary):
                                         
                                         # remove the single term from suggestions_split
                                         if (suggestions1[0].term + suggestions2[0].term == terms[i]):
-                                            suggestion_split.count = max(suggestion_split.count,suggestion_split_best.count + 2)
+                                            suggestion_split.count = max(suggestion_split.count,suggestions[0].count + 2)
                                         elif ((suggestions1[0].term == suggestions[0].term ) or suggestions2[0].term == suggestions[0].term):
                                             # make count bigger than the count of a single term correction
                                             suggestion_split.count = max(suggestion_split.count,suggestions[0].count + 1)
@@ -136,7 +136,6 @@ class SymspellCompound(SymspellDictionary):
                                     suggestion_split.count = min(self.bigram_count_min,( suggestions1[0].count / self.N * suggestions2[0].count) )
                                 if (suggestion_split_best is None or suggestion_split.count > suggestion_split_best.count ):
                                     suggestion_split_best = suggestion_split
-                    pass
                     if suggestion_split_best is not None:
                         suggestion_parts.append(suggestion_split_best)
                     else:
