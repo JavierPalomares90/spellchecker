@@ -111,7 +111,7 @@ class SymspellCompound(SymspellDictionary):
 
                                 suggestion_split.distance = suggestions_split_distance 
                                 # if bigram exists in bigram dictionary
-                                bigram_count = self.bi_grams[suggestion_split.term] 
+                                bigram_count = self.bi_grams.get(suggestion_split.term)
                                 if bigram_count is not None:
                                     suggestion_split.count = bigram_count
 

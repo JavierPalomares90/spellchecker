@@ -33,10 +33,6 @@ class SymspellDictionary:
             // Dictionary of unique correct spelling words, and the frequency count for each word.
         '''
         self.words = dict()
-        '''
-            // Dictionary of unique bigrams, and the frequency count for each word.
-        '''
-        self.bi_grams = dict()
 
     @staticmethod
     def _get_edits(word,edit_distance,words_set,max_dictionary_edit_distance):
@@ -291,7 +287,7 @@ class SymspellDictionary:
                         # In that case, maxEditDistanceCandidate is equal to the maxEdiDistance
 
                         if  distance <= max_edit_distance_candidate:
-                            suggestion_count = self.words[suggestion]
+                            suggestion_count = self.words.get(suggestion)
                             symspell_suggestion = SymspellSuggestion(suggestion,distance,suggestion_count)
                             
                             if suggestions:
