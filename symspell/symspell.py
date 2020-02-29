@@ -56,11 +56,6 @@ def _load_bi_gram_dictionary(dictionary,corpus_size,dictionary_text,terms_index,
         line = dictionary_text.readline()
     return compound_dictionary
 
-def create_dictionary():
-    #TODO: Complete impl
-    pass
-
-
 # load dictionary of the format "<term> <count>"
 def load_dictionary(dictionary_path,term_index = 0, count_index = 1,separator=' ',dictionary=None):
     if path.exists(dictionary_path) == False:

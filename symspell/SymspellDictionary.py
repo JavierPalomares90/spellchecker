@@ -63,9 +63,19 @@ class SymspellDictionary:
 
 
     # Check if all the delete chars are present in the suggestion prefix order
-    @staticmethod
-    def delete_in_suggestion_prefix(delete,delete_len, suggestion,suggestion_len):
-        #TODO: Complete impl
+    def delete_in_suggestion_prefix(self,delete,delete_len, suggestion,suggestion_len):
+        if delete_len == 0:
+            return True
+        if self.prefix_length < suggestion_len:
+            suggestion_length = self.prefix_length
+        j = 0
+        for i in range(delete_len):
+            del_char = delete[i]
+            while j < suggestion_len and del_char != suggestion[j]:
+                j += 1
+            if j == suggestion_len:
+                return False
+        return True
 
         return True
 
