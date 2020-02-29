@@ -203,7 +203,8 @@ class SymspellDictionary:
             # then there are no better suggestions to be expected
             if len_diff > max_edit_distance_candidate:
                 break
-            if candidate in self.deletes:
+            candidate_hash = Utils.get_string_hash(candidate)
+            if candidate_hash in self.deletes:
                 # read candidate entry from the dictionary
                 dictionary_suggestions = self.deletes.get(Utils.get_string_hash(candidate))
 
@@ -310,18 +311,18 @@ class SymspellDictionary:
                             suggestions.append(symspell_suggestion)
 
                                 #
-                # add edits
-                # derive edits from the input and add to the candidate list recursively
-                if len_diff < max_edit_distance and candidate_len <= self.prefix_length:
-                    # don't need to create edits with edit distance smaller than the suggestions already found
-                    if verbosity is not SymspellVerbosity.ALL and len_diff > max_edit_distance_candidate:
-                        continue
+            # add edits
+            # derive edits from the input and add to the candidate list recursively
+            if len_diff < max_edit_distance and candidate_len <= self.prefix_length:
+                # don't need to create edits with edit distance smaller than the suggestions already found
+                if verbosity is not SymspellVerbosity.ALL and len_diff > max_edit_distance_candidate:
+                    continue
 
-                    for i in range(candidate_len):
-                        delete = candidate[0:i] + candidate[i+1:]
-                        if delete not in deletes_considered:
-                            deletes_considered.add(delete)
-                            candidates.append(delete)
+                for i in range(candidate_len):
+                    delete = candidate[0:i] + candidate[i+1:]
+                    if delete not in deletes_considered:
+                        deletes_considered.add(delete)
+                        candidates.append(delete)
             
         # sort by ascending edit distance
         if len(suggestions) > 1:
