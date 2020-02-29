@@ -48,8 +48,7 @@ class SymspellCompound(SymspellDictionary):
                 suggestions_for_combination = self.symspell_dictionary.lookup(terms[i-1] + terms[i],SymspellVerbosity.TOP,max_edit_distance)
 
                 if len(suggestions_for_combination) > 0:
-                    best1 = suggestion_parts[len(suggestions_for_combination) - 1]
-                    #TODO: Complete impl
+                    best1 = suggestion_parts[-1]
                     best2 = SymspellSuggestion()
                     if len(suggestions) > 0:
                         best2 = suggestions[0]
@@ -67,9 +66,9 @@ class SymspellCompound(SymspellDictionary):
                         or ((suggestions_for_combination[0].distance + 1 == distance1) and
                          (suggestions_for_combination[0].count > best1.count / self.N * best2.count)))):
                         suggestions_for_combination[0].distance =  (suggestions_for_combination[0].distance) + 1
-                        suggestions_for_combination[len(suggestions_for_combination) - 1 ] = suggestions_for_combination[0]
+                        suggestion_parts[-1] = suggestions_for_combination[0]
                         terms_combined = True
-                        # GOTO: nextTerm
+                        continue
             terms_combined = False
 
             # always split terms without suggestion. Don't split terms with suggestions. Don't split single char terms
