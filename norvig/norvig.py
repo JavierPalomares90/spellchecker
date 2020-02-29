@@ -143,7 +143,7 @@ def get_spelling_correction(word,dictionary_terms,error_model,max_edit_distance)
         return None
     return max(candidate_words,key= lambda k: error_model[k])
 
-def main():
+def run():
     args = get_args()
     dictionary = args.dictionary
     max_edit_distance = args.max_edit_distance
@@ -159,4 +159,4 @@ def main():
             print("I suggest you spell that as:\n{}".format(correction))
 
 if __name__ == '__main__':
-    main()
+    run()

@@ -74,7 +74,7 @@ def load_bi_gram_dictionary(dictionary_path,corpus_size,terms_index = 0,count_in
         dictionary = _load_bi_gram_dictionary(dictionary,corpus_size,dictionary_text,terms_index,count_index,separator)
     return dictionary
 
-def main():
+def run():
     args = get_args()
     max_edit_distance = args.max_edit_distance_precal
     dictionary_path = args.dictionary_path
@@ -83,9 +83,6 @@ def main():
         query = input("What are you looking for?\n")
         suggestions = dictionary.lookup(query)
 
-    #TODO:  Complete impl
-    pass
-
 
 if __name__ == '__main__':
-    main()
+    run()
