@@ -133,7 +133,7 @@ class SymspellCompound(SymspellDictionary):
                                     # The Bayes's prob of the word combination is the product of the 2 word probs
                                     # P(A B) = P(A) * P(B)
                                     # use it to estimate the frequency count of the combination which is then used to rank the best splitting variatn
-                                    suggestion_split.count = min(self.bigram_count_min,( suggestions1[0].count / self.N * suggestions2[0].count) )
+                                    suggestion_split.count = min(self.min_bi_gram_count,( suggestions1[0].count / self.N * suggestions2[0].count) )
                                 if (suggestion_split_best is None or suggestion_split.count > suggestion_split_best.count ):
                                     suggestion_split_best = suggestion_split
                     if suggestion_split_best is not None:
@@ -152,9 +152,11 @@ class SymspellCompound(SymspellDictionary):
             s = s + si.term + " "
             count = count * (si.count / self.N)
 
+        # remove trailing whitespace
+        s.rstrip()
         suggestion.count = count
         suggestion.term = s
-        suggestion.distance = edit_distance.compare(input_term,suggestion.term,sys.maxsize)
+        suggestion.distance = edit_distance.edit_distance(input_term,suggestion.term)
 
         suggestions_line = list()
         suggestions_line.append(suggestion)

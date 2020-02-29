@@ -21,6 +21,3 @@ suggestions = bigram_dictionary.lookup_compound(input_term, max_edit_distance=2)
 # display suggestion term, edit distance, and term frequency
 for suggestion in suggestions:
     print(suggestion)
-
-
-input_term
