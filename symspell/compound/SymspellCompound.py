@@ -26,7 +26,7 @@ class SymspellCompound(SymspellDictionary):
         return True
 
     def lookup_compound(self,input_term):
-        return lookup_compound(input_term,self.max_dictionary_edit_distance)
+        return self.lookup_compound(input_term,self.max_dictionary_edit_distance)
 
     def lookup_compound(self,input_term, max_edit_distance):
         suggestions = list()
@@ -89,6 +89,7 @@ class SymspellCompound(SymspellDictionary):
                         part1 = terms[i][:j]
                         part2 = terms[i][j:]
                         suggestions1 = self.symspell_dictionary.lookup(part1,SymspellVerbosity.TOP,max_edit_distance)
+                        suggestion_split = SymspellSuggestion()
 
                         if len(suggestions1) > 0:
                             suggestions2 = self.symspell_dictionary.lookup(part2,SymspellVerbosity.TOP,max_edit_distance)
@@ -161,7 +162,6 @@ class SymspellCompound(SymspellDictionary):
         suggestions_line.append(suggestion)
 
         return suggestions_line
-
 
 
 

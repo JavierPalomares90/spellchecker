@@ -28,6 +28,11 @@ def read_master_list(path):
             line = fp.readline()
     return master_list 
 
+def process(query,choices):
+    best = process.extractOne(query,choices, scorer=fuzz.token_sort_ratio)
+    return best
+
+
 def main():
     args = parse_args()
     master_list_path = args.path
@@ -41,7 +46,7 @@ def main():
         #print(process.extract(query,choices,scorer=fuzz.partial_token_set_ratio))
         #print("Using partial ratio")
         #print(process.extract(query,choices,scorer=fuzz.partial_ratio))
-        best = process.extractOne(query,choices, scorer=fuzz.token_sort_ratio)
+        best = process(query,choices)
         print("I think you meant: {}".format(best))
 
 

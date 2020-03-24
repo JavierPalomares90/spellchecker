@@ -9,6 +9,16 @@ bigram_path = pkg_resources.resource_filename(
 dictionary = symspell.load_dictionary(dictionary_path)
 suggestions = dictionary.lookup("whereis",verbosity=SymspellVerbosity.SymspellVerbosity.TOP,max_edit_distance=2,include_unknown=False)
 
+test = "whereis th elove hehad dated forImuch of thepast who couqdn'tread in sixtgrade and ins pired him"
+tokens = test.split()
+s = ''
+for t in tokens:
+    sg = dictionary.lookup(t,verbosity=SymspellVerbosity.SymspellVerbosity.TOP,max_edit_distance=2,include_unknown=False)
+    if len(sg) > 0:
+        s += " " + sg[0].term
+
+print(s)
+
 
 # lookup suggestions for multi-word input strings (supports compound
 # splitting & merging)

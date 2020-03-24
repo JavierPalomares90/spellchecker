@@ -13,8 +13,6 @@ class DistanceAlgorithm():
         self.algorithm = distance_algorithm
         if self.algorithm == DistanceAlgorithms.LEVENSHTEIN:
             self._distance_comparer = Levenshtein()
-        elif self.algorithm == DistanceAlgorithms.DAMERUAUOSA:
-            self._distance_comparer = Damerauosa()
         else:
             raise ValueError("Unknown distance algorithm")
 
@@ -29,26 +27,3 @@ class Levenshtein():
     def edit_distance(self, str1, str2):
         #TODO: Need to figure out how to include the ratios in here
         return lev.distance(str1,str2)
-
-# 
-class Damerauosa(DistanceAlgorithm):
-    def edit_distance(self, str1, str2):
-        #TODO: Complete impl
-        return 0
-
-class Fuzzy(DistanceAlgorithm):
-    def edit_distance(self, str1, str2):
-        '''
-        query = input("What are you looking for?\n").lower()
-         Compute the best choice using the leveshtein distance and WRatio
-        print("Using token set ratio")
-        print(process.extract(query,choices,scorer=fuzz.token_set_ratio))
-        print("Using partial token set ratio")
-        print(process.extract(query,choices,scorer=fuzz.partial_token_set_ratio))
-        print("Using partial ratio")
-        print(process.extract(query,choices,scorer=fuzz.partial_ratio))
-        best = process.extractOne(query,choices, scorer=fuzz.token_sort_ratio)
-        print("I think you meant: {}".format(best))
-        '''
-        #TODO: Complete impl
-        return 0

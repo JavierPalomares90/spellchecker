@@ -2,6 +2,7 @@
 # Copyright (C) 2020 Javier Palomares
 from norvig import norvig
 from symspell import symspell,SymspellDictionary,SymspellVerbosity
+from fuzzy import spellchecker
 import logging
 
 
@@ -27,7 +28,7 @@ def run_norvig():
 
 def run_symspell():
     logging.debug("runing symspell")
-    print("You picked norvig")
+    print("You picked symspell")
     print("Needed arguments: \n 1. path to dictionary frequency map (corpus) 2. max edit distance(default 3. corpus size\n")
     dictionary_path = input("Pass in the path to the dictionary frequency map\n")
     max_edit_distance = input("What is the max edit distance. Hit enter for default of 2\n")
@@ -51,6 +52,7 @@ def run_symspell():
 
 def run_symspell_compound():
     logging.debug("runing symspell compound")
+    print("You picked symspell compound")
     print("Needed arguments: \n 1. path to dictionary frequency map 2. path to bi gram frequency map 3. max edit distance (default is 2)4. corpus size\n")
     dictionary_path = input("Pass in the path to the dictionary frequency map\n")
     bigram_dictionary_path = input("Pass in the path to the bi gram frequency map\n")
@@ -74,13 +76,25 @@ def run_symspell_compound():
         else:
             print("I don't have a suggestion for you.\n")
 
+def run_fuzzy():
+    print("You picked fuzzy")
+    print("Needed arguments: \n 1. path to master_list")
+    dictionary_path = input("Pass in the path to the dictionary frequency map\n")
+    choices = spellchecker.read_master_list(dictionary_path)
+    while True:
+        word = input("Try my spelling. One word at a time:\n")
+        correction = spellchecker.process(word,choices)
+        if correction is None:
+            print("I don't have a suggestion for you.\n")
+        else:
+            print("I suggest you spell that as:\n{}".format(correction))
 
 def main():
     print("Welcome to spellchecker. Algorithm options:")
     print("1 - Norvig")
     print("2 - Symspell")
     print("3 - Symspell Compound (using bigram)")
-    print("4 - Symspell using fuzzy")
+    print("4 - fuzzy")
     response = None
 
     while response not in {"1","2","3","4"}:
@@ -89,8 +103,10 @@ def main():
             run_norvig()
         if(response == "2"):
             run_symspell()
-        if response in {"3","4"}:
+        if response == '3':
             run_symspell_compound()
+        if response == '4':
+            run_fuzzy()
 
 
 if __name__ == '__main__':
