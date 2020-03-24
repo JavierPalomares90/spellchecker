@@ -29,6 +29,13 @@ def load_dictionary(master_list_text,separator):
         line = master_list_text.readline()
     return dictionary,token_frequency
 
+def write_dictionary(dictionary, frequency_count, save_path):
+    with open(save_path,'w',encoding="utf-8") as save_file:
+        save_file.write('{}'.format(frequency_count))
+        for key,value in dictionary.items():
+            save_file.write('{key} {value}\n'.format(key=key,value=value))
+    
+
 
 def build_dictionary(master_list,save_path):
     if path.exists(master_list) == False:
@@ -36,7 +43,8 @@ def build_dictionary(master_list,save_path):
         sys.exit(-1)
     with open(master_list, 'r', encoding="utf-8") as master_list_text:
         dictionary,frequency_count = load_dictionary(master_list_text, ' ')
-        a = 0
+    write_dictionary(dictionary,frequency_count,save_path)
+
     
 
 
