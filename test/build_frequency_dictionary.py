@@ -31,7 +31,7 @@ def load_dictionary(master_list_text,separator):
 
 def write_dictionary(dictionary, frequency_count, save_path):
     with open(save_path,'w',encoding="utf-8") as save_file:
-        save_file.write('{}'.format(frequency_count))
+        save_file.write('{}\n'.format(frequency_count))
         for key,value in dictionary.items():
             save_file.write('{key} {value}\n'.format(key=key,value=value))
     
