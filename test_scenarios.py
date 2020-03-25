@@ -37,9 +37,9 @@ def get_norvig_suggestions(tokens,dictionary_terms,error_model):
 
 
 
-def run_scenario1(dictionary,bigram,norvig_dict,norvig_error_model):
-    scenario1_file = "resources/data/scenarios/scenario1.txt"
-    result_file = "resources/data/scenarios/results/scenario1_result.txt"
+def run_scenario_i(dictionary,bigram,norvig_dict,norvig_error_model,i):
+    scenario1_file = "resources/data/scenarios/scenario{}.txt".format(i)
+    result_file = "resources/data/scenarios/results/scenario{}_result.txt".format(i)
     r = open(result_file,'w+')
     with open(scenario1_file,'r',encoding='utf-8') as test_file_text:
         line = test_file_text.readline()
@@ -67,7 +67,9 @@ def main():
     dictionary = symspell.load_dictionary(dictionary_path)
     bigram_dictionary = symspell.load_bi_gram_dictionary(bigram_path,corpus_size,dictionary=dictionary)
     norvig_dict, norvig_error_model = norvig.get_error_model(master_list)
-    run_scenario1(dictionary,bigram_dictionary,norvig_dict,norvig_error_model)
+    scenarios = ['1','2','3','4','5','5_2','5_3','6','8','9','10']
+    for i in scenarios:
+        run_scenario_i(dictionary,bigram_dictionary,norvig_dict,norvig_error_model,i)
 
 if __name__ == '__main__':
     main()

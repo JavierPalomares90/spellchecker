@@ -1,0 +1,9 @@
+Input, Sympell suggestion,Symspell Exec time(seconds),Bigram suggestion,Bigram Exec time (seconds),Norvig suggestion, Norvig exec time
+iShares ESG MSCI US ETF, iShares ESG MSCI US ETF,7.081031799316406e-05,iShares Test - 8i - of ,0.0031256675720214844, iShares ESG MSCI US ETF,0.0001609325408935547
+Wahed FTSE US Shariah ETF, Wahed FTSE US Shariah ETF,7.152557373046875e-05,Wahed the - Shariah of ,0.0032958984375, Wahed FTSE US Shariah ETF,0.0001456737518310547
+Heartland Financial US, Inc. - Common Stock, Heartland Financial US, Inc. - Common Stock,7.367134094238281e-05,Heartland Financial - Inc common stock ,0.0034782886505126953, Heartland Financial US, Inc. - Common Stock,0.0001990795135498047
+Kura Sushi US, Inc. - Class A Common Stock, Kura Sushi US, Inc. - Class A Common Stock,7.915496826171875e-05,Kura Sushi - Inc Class a common stock ,0.0024602413177490234, Kura Sushi US, Inc. - Class A Common Stock,0.0001919269561767578
+iShares ESG MSCI US Leaders ETF, iShares ESG MSCI US Leaders ETF,5.4836273193359375e-05,iShares Test - 8i - Leaders of ,0.00406336784362793, iShares ESG MSCI US Leaders ETF,0.00013303756713867188
+US Truck, Inc. - Common Stock, US Truck, Inc. - Common Stock,6.914138793945312e-05,- Truck, Inc common stock ,0.001628875732421875, US Truck, Inc. - Common Stock,0.00017690658569335938
+VirtUS Corporation - common stock, Virtus Corporation - common stock,0.0001227855682373047,Virtus Corporation common stock ,0.002834320068359375, Virtus Corporation - Common Stock,0.0001919269561767578
+, -,8.606910705566406e-05,,1.0967254638671875e-05, -,6.556510925292969e-05

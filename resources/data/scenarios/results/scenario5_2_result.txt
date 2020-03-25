@@ -1,0 +1,127 @@
+Input, Sympell suggestion,Symspell Exec time(seconds),Bigram suggestion,Bigram Exec time (seconds),Norvig suggestion, Norvig exec time
+ACADIA Pharm.  - Common Stock, ACADIA Pharma  - Common Stock,0.00021648406982421875,Acadia Share common stock ,0.0020935535430908203, Acadia Pharma - - Common Stock,0.00041961669921875
+Achillion Pharm.,  - Common Stock, Achillion Pharma,  - Common Stock,0.00011348724365234375,Achillion Share common stock ,0.0019443035125732422, Achillion Pharma, - - Common Stock,0.0004000663757324219
+AcelRx Pharm.,  - Common Stock, AcelRx Pharma,  - Common Stock,0.00011086463928222656,AcelRx Share common stock ,0.0019371509552001953, AcelRx Pharma, - - Common Stock,0.0005550384521484375
+Adial Pharm.,  - Common Stock, Adial Pharma,  - Common Stock,0.00011658668518066406,Adial Share common stock ,0.0019500255584716797, Adial Pharma, - - Common Stock,0.00047659873962402344
+Adial Pharm.,  - Warrant, Adial Pharma,  - Warrant,0.0001990795135498047,Adial Share warrant ,0.001720428466796875, Adial Pharma, - - Warrant,0.0004115104675292969
+Adamis Pharm. Corporation - Common Stock, Adamis Pharma Corporation - Common Stock,0.00011348724365234375,Adamis Share Corporation common stock ,0.003297090530395508, Adamis Pharma Corporation - Common Stock,0.0003211498260498047
+Adamas Pharm.,  - Common Stock, Adamas Pharma,  - Common Stock,0.00011205673217773438,Adamas Share common stock ,0.0017571449279785156, Adamas Pharma, - - Common Stock,0.00041103363037109375
+Aerie Pharm.,  - Common Stock, Aerie Pharma,  - Common Stock,0.00011181831359863281,Aerie Share common stock ,0.0017552375793457031, Aerie Pharma, - - Common Stock,0.0003669261932373047
+Agios Pharm.,  - Common Stock, Agios Pharma,  - Common Stock,0.00011181831359863281,Agios Share common stock ,0.0017712116241455078, Agios Pharma, - - Common Stock,0.0003695487976074219
+Allena Pharm.,  - Common Stock, Allena Pharma,  - Common Stock,0.00011086463928222656,Allena Share common stock ,0.0019855499267578125, Allena Pharma, - - Common Stock,0.0004069805145263672
+Alnylam Pharm.,  - Common Stock, Alnylam Pharma,  - Common Stock,0.00015234947204589844,Alnylam Share common stock ,0.0018813610076904297, Alnylam Pharma, - - Common Stock,0.0003676414489746094
+Alexion Pharm.,  - Common Stock, Alexion Pharma,  - Common Stock,0.00013494491577148438,Alexion Share common stock ,0.0020940303802490234, Alexion Pharma, - - Common Stock,0.0003898143768310547
+AMAG Pharm.,  - Common Stock, AMAG Pharma,  - Common Stock,0.00010895729064941406,Image Share common stock ,0.0015447139739990234, AMAG Pharma, - - Common Stock,0.000362396240234375
+Amphastar Pharm.,  - Common Stock, Amphastar Pharma,  - Common Stock,0.0001087188720703125,Amphastar Share common stock ,0.001986265182495117, Amphastar Pharma, - - Common Stock,0.00035834312438964844
+ANI Pharm.,  - Common Stock, ANI Pharma,  - Common Stock,0.00010800361633300781,and Share common stock ,0.0013282299041748047, ANI Pharma, - - Common Stock,0.0003590583801269531
+Apellis Pharm.,  - Common Stock, Apellis Pharma,  - Common Stock,0.00010704994201660156,Apellis Share common stock ,0.0021295547485351562, Apellis Pharma, - - Common Stock,0.0003571510314941406
+Aridis Pharm.  - Common Stock, Aridis Pharma  - Common Stock,0.00010943412780761719,Aridis Share common stock ,0.0017614364624023438, Aridis Pharma - - Common Stock,0.0004336833953857422
+Arena Pharm.,  - Common Stock, Arena Pharma,  - Common Stock,0.000125885009765625,Tarena Share common stock ,0.002023935317993164, Arena Pharma, - - Common Stock,0.0003814697265625
+Aerpio Pharm.,  - Common Stock, Aerpio Pharma,  - Common Stock,0.00011086463928222656,Aerpio Share common stock ,0.0017552375793457031, Aerpio Pharma, - - Common Stock,0.0003731250762939453
+Arrowhead Pharm.,  - Common Stock, Arrowhead Pharma,  - Common Stock,0.0001087188720703125,Arrowhead Share common stock ,0.0021691322326660156, Arrowhead Pharma, - - Common Stock,0.00036072731018066406
+ASLAN Pharm. Limited - American Depositary Shares, ASLAN Pharma Limited - American Depositary Shares,0.00012254714965820312,Island Share limited American depositary shares ,0.0032100677490234375, ASLAN Pharma Limited - American Depositary Shares,0.0003535747528076172
+Aurinia Pharm.  - Common Shares, Aurinia Pharma  - Common Shares,0.00011897087097167969,Aurinia Share common shares ,0.0019979476928710938, Aurinia Pharma - - Common Shares,0.00037932395935058594
+Avadel Pharm. plc - American Depositary Shares each representing one Ordinary Share, Avadel Pharma plc - American Depositary Shares each representing one Ordinary Shares,0.00014090538024902344,Avadel Share plc American depositary shares each representing one ordinary share ,0.0035223960876464844, Avadel Pharma plc - American Depositary Shares each representing one Ordinary Shares,0.0004239082336425781
+AVEO Pharm.,  - Common Stock, AVEO Pharma,  - Common Stock,0.0001342296600341797,Evelo Share common stock ,0.0016956329345703125, AVEO Pharma, - - Common Stock,0.00038313865661621094
+BioCryst Pharm.,  - Common Stock, BioCryst Pharma,  - Common Stock,0.00011229515075683594,BioCryst Share common stock ,0.0019497871398925781, BioCryst Pharma, - - Common Stock,0.0003669261932373047
+Bellicum Pharm.,  - Common Stock, Bellicum Pharma,  - Common Stock,0.00011134147644042969,Bellicum Share common stock ,0.0019829273223876953, Bellicum Pharma, - - Common Stock,0.00037169456481933594
+BiondVax Pharm. Ltd. - American Depositary Shares, BiondVax Pharma Ltd. - American Depositary Shares,0.00012302398681640625,BiondVax Share Wtd American depositary shares ,0.003544330596923828, BiondVax Pharma Ltd. - American Depositary Shares,0.00037288665771484375
+BiondVax Pharm. Ltd. - Warrants, BiondVax Pharma Ltd. - Warrants,0.0001347064971923828,BiondVax Share Wtd Warrants ,0.003381490707397461, BiondVax Pharma Ltd. - Warrants,0.0003910064697265625
+CASI Pharm.,  - Common Stock, CASI Pharma,  - Common Stock,0.00011324882507324219,Oasis Share common stock ,0.002068042755126953, CASI Pharma, - - Common Stock,0.00039958953857421875
+Catabasis Pharm.,  - Common Stock, Catabasis Pharma,  - Common Stock,0.00011610984802246094,Catabasis Share common stock ,0.002070903778076172, Catabasis Pharma, - - Common Stock,0.00037479400634765625
+Conatus Pharm.  - Common Stock, Conatus Pharma  - Common Stock,0.00011229515075683594,Conatus Share common stock ,0.0021467208862304688, Conatus Pharma - - Common Stock,0.0004088878631591797
+Concert Pharm.,  - Common Stock, Concert Pharma,  - Common Stock,0.00011301040649414062,Concert Share common stock ,0.0023322105407714844, Concert Pharma, - - Common Stock,0.0003681182861328125
+CNS Pharm.,  - Common Stock, CNS Pharma,  - Common Stock,0.00011086463928222656,Inc Share common stock ,0.0017044544219970703, CNS Pharma, - - Common Stock,0.0003714561462402344
+Constellation Pharm.,  - Common Stock, Constellation Pharma,  - Common Stock,0.00011157989501953125,Constellation Share common stock ,0.0028100013732910156, Constellation Pharma, - - Common Stock,0.00038313865661621094
+Cumberland Pharm.  - Common Stock, Cumberland Pharma  - Common Stock,0.00011134147644042969,Cumberland Share common stock ,0.0026960372924804688, Cumberland Pharma - - Common Stock,0.0003707408905029297
+Catalyst Pharm.,  - Common Stock, Catalyst Pharma,  - Common Stock,0.00014019012451171875,Catalyst Share common stock ,0.002000093460083008, Catalyst Pharma, - - Common Stock,0.00037980079650878906
+Corbus Pharm. Holdings,  - Common Stock, Corbus Pharma Holdings,  - Common Stock,0.00011658668518066406,Corbus Share Holdings common stock ,0.0031919479370117188, Corbus Pharma Holdings, - - Common Stock,0.00035500526428222656
+Crinetics Pharm.,  - Common Stock, Crinetics Pharma,  - Common Stock,0.00011181831359863281,Crinetics Share common stock ,0.002382040023803711, Crinetics Pharma, - - Common Stock,0.00036835670471191406
+Corvus Pharm.,  - Common Stock, Corvus Pharma,  - Common Stock,0.00011157989501953125,Corvus Share common stock ,0.001985311508178711, Corvus Pharma, - - Common Stock,0.0003688335418701172
+Citius Pharm.,  - Common Stock, Citius Pharma,  - Common Stock,0.00011157989501953125,Citius Share common stock ,0.0021195411682128906, Citius Pharma, - - Common Stock,0.00038242340087890625
+Citius Pharm.,  - Warrant, Citius Pharma,  - Warrant,0.00017261505126953125,Citius Share warrant ,0.0023508071899414062, Citius Pharma, - - Warrant,0.00046896934509277344
+Cyclacel Pharm.,  - Common Stock, Cyclacel Pharma,  - Common Stock,0.0001232624053955078,Cyclacel Share common stock ,0.0021409988403320312, Cyclacel Pharma, - - Common Stock,0.0004048347473144531
+Cyclacel Pharm.,  - 6% Convertible Preferred Stock, Cyclacel Pharma,  - 6% Convertible Preferred Stock,0.00014519691467285156,Cyclacel Share Convertible Preferred stock ,0.004226207733154297, Cyclacel Pharma, - - 6% Convertible Preferred Stock,0.0003898143768310547
+Deciphera Pharm.,  - Common Stock, Deciphera Pharma,  - Common Stock,0.0001125335693359375,Deciphera Share common stock ,0.002004384994506836, Deciphera Pharma, - - Common Stock,0.0003707408905029297
+Diffusion Pharm.  - Common Stock, Diffusion Pharma  - Common Stock,0.0001385211944580078,Diffusion Share common stock ,0.002048492431640625, Diffusion Pharma - - Common Stock,0.00037598609924316406
+DelMar Pharm.,  - Common Stock, DelMar Pharma,  - Common Stock,0.00011110305786132812,DelMar Share common stock ,0.0019216537475585938, DelMar Pharma, - - Common Stock,0.00046896934509277344
+Dicerna Pharm.,  - Common Stock, Dicerna Pharma,  - Common Stock,0.00013375282287597656,Dicerna Share common stock ,0.002289295196533203, Dicerna Pharma, - - Common Stock,0.000385284423828125
+Eagle Pharm.,  - Common Stock, Eagle Pharma,  - Common Stock,0.00011301040649414062,Eagle Share common stock ,0.001989126205444336, Eagle Pharma, - - Common Stock,0.00036978721618652344
+Eiger BioPharm.,  - Common Stock, Eiger BioPharma,  - Common Stock,0.00016355514526367188,Eiger Biopharma common stock ,0.0017731189727783203, Eiger Biopharma, - - Common Stock,0.0005533695220947266
+Eloxx Pharm.,  - Common Stock, Eloxx Pharma,  - Common Stock,0.0001251697540283203,Eloxx Share common stock ,0.0019578933715820312, Eloxx Pharma, - - Common Stock,0.0004153251647949219
+Enanta Pharm.,  - Common Stock, Enanta Pharma,  - Common Stock,0.00012540817260742188,Enanta Share common stock ,0.002368450164794922, Enanta Pharma, - - Common Stock,0.0003809928894042969
+Eton Pharm.,  - Common Stock, Eton Pharma,  - Common Stock,0.00011420249938964844,Eton Share common stock ,0.001584768295288086, Eton Pharma, - - Common Stock,0.0003676414489746094
+Eyegate Pharm.,  - Common Stock, Eyegate Pharma,  - Common Stock,0.00011205673217773438,Eyegate Share common stock ,0.002178192138671875, Eyegate Pharma, - - Common Stock,0.0005311965942382812
+Eyegate Pharm.,  - Warrants, Eyegate Pharma,  - Warrants,0.0001671314239501953,Eyegate Share Warrants ,0.0028047561645507812, Eyegate Pharma, - - Warrants,0.000438690185546875
+EyePoint Pharm.,  - Common Stock, EyePoint Pharma,  - Common Stock,0.00011229515075683594,EyePoint Share common stock ,0.0019078254699707031, EyePoint Pharma, - - Common Stock,0.0004184246063232422
+Fennec Pharm.  - Common Stock, Fennec Pharma  - Common Stock,0.0001125335693359375,Fennec Share common stock ,0.0018324851989746094, Fennec Pharma - - Common Stock,0.0003502368927001953
+Foamix Pharm. Ltd. - Ordinary Shares, Foamix Pharma Ltd. - Ordinary Shares,0.00011944770812988281,Foamix Share Wtd ordinary shares ,0.0023572444915771484, Foamix Pharma Ltd. - Ordinary Shares,0.0003495216369628906
+First Trust Nasdaq Pharm. ETF, First Trust Nasdaq Pharma ETF,9.107589721679688e-05,First Trust Nasdaq Share of ,0.003569364547729492, First Trust Nasdaq Pharma ETF,0.0004050731658935547
+Galmed Pharm. Ltd. - Ordinary Shares, Galmed Pharma Ltd. - Ordinary Shares,0.00017523765563964844,Galmed Share Wtd ordinary shares ,0.002672433853149414, Galmed Pharma Ltd. - Ordinary Shares,0.0003581047058105469
+GW Pharm. Plc - American Depositary Shares, GW Pharma Plc - American Depositary Shares,0.00012540817260742188,- Share plc American depositary shares ,0.0026865005493164062, GW Pharma plc - American Depositary Shares,0.0003445148468017578
+Hepion Pharm.,  - Common Stock, Hepion Pharma,  - Common Stock,0.00016164779663085938,Hepion Share common stock ,0.0017163753509521484, Hepion Pharma, - - Common Stock,0.00036978721618652344
+Intercept Pharm.,  - Common Stock, Intercept Pharma,  - Common Stock,0.00010895729064941406,Intercept Share common stock ,0.002507925033569336, Intercept Pharma, - - Common Stock,0.0003616809844970703
+Idera Pharm.,  - Common Stock, Idera Pharma,  - Common Stock,0.00013709068298339844,Idera Share common stock ,0.0016050338745117188, Idera Pharma, - - Common Stock,0.00035691261291503906
+Infinity Pharm.,  - Common Stock, Infinity Pharma,  - Common Stock,0.00010919570922851562,Infinity Share common stock ,0.0018122196197509766, Infinity Pharma, - - Common Stock,0.0004622936248779297
+Innovate BioPharm.,  - Common Stock, Innovate BioPharma,  - Common Stock,0.0001761913299560547,Innovate Biopharma common stock ,0.0020599365234375, Innovate Biopharma, - - Common Stock,0.00046944618225097656
+Inovio Pharm.,  - Common Stock, Inovio Pharma,  - Common Stock,0.0001442432403564453,Inovio Share common stock ,0.002022981643676758, Inovio Pharma, - - Common Stock,0.0003814697265625
+Ionis Pharm.,  - Common Stock, Ionis Pharma,  - Common Stock,0.0001125335693359375,Ionis Share common stock ,0.0018124580383300781, Ionis Pharma, - - Common Stock,0.00036144256591796875
+Ironwood Pharm.,  - Class A Common Stock, Ironwood Pharma,  - Class A Common Stock,0.00011444091796875,Ironwood Share Class a common stock ,0.002953767776489258, Ironwood Pharma, - - Class A Common Stock,0.00036597251892089844
+Jazz Pharm. plc - Ordinary Shares, Jazz Pharma plc - Ordinary Shares,0.00011897087097167969,Jazz Share plc ordinary shares ,0.0017309188842773438, Jazz Pharma plc - Ordinary Shares,0.00033402442932128906
+Kala Pharm.,  - Common Stock, Kala Pharma,  - Common Stock,0.00010991096496582031,Kala Share common stock ,0.0015416145324707031, Kala Pharma, - - Common Stock,0.00035762786865234375
+KalVista Pharm.,  - Common Stock, KalVista Pharma,  - Common Stock,0.00010919570922851562,KalVista Share common stock ,0.00220489501953125, KalVista Pharma, - - Common Stock,0.0003719329833984375
+Kiniksa Pharm., Ltd. - Class A Common Stock, Kiniksa Pharma, Ltd. - Class A Common Stock,0.00011777877807617188,Kiniksa Share Wtd Class a common stock ,0.0034203529357910156, Kiniksa Pharma, Ltd. - Class A Common Stock,0.0003552436828613281
+Ligand Pharm. orporated - Common Stock, Ligand Pharma Corporate - Common Stock,0.00020766258239746094,Ligand Share Corporate common stock ,0.002943754196166992, Ligand Pharma Corporate - Common Stock,0.15702605247497559
+Lexicon Pharm.,  - Common Stock, Lexicon Pharma,  - Common Stock,0.0001418590545654297,Lexicon Share common stock ,0.0023474693298339844, Lexicon Pharma, - - Common Stock,0.0004177093505859375
+Merrimack Pharm.,  - Common Stock, Merrimack Pharma,  - Common Stock,0.00011014938354492188,Merrimack Share common stock ,0.0022640228271484375, Merrimack Pharma, - - Common Stock,0.00035953521728515625
+Madrigal Pharm.,  - Common Stock, Madrigal Pharma,  - Common Stock,0.00012445449829101562,Madrigal Share common stock ,0.0020585060119628906, Madrigal Pharma, - - Common Stock,0.0003681182861328125
+Mirum Pharm.,  - common stock, Mirum Pharma,  - common stock,0.00010657310485839844,Mirum Share common stock ,0.0019075870513916016, Mirum Pharma, - - Common Stock,0.0003662109375
+Milestone Pharm.  - Common Shares, Milestone Pharma  - Common Shares,0.00011920928955078125,Milestone Share common shares ,0.0021064281463623047, Milestone Pharma - - Common Shares,0.00035858154296875
+Momenta Pharm.,  - Common Stock, Momenta Pharma,  - Common Stock,0.00010895729064941406,Momenta Share common stock ,0.002132415771484375, Momenta Pharma, - - Common Stock,0.00041174888610839844
+Marinus Pharm.,  - Common Stock, Marinus Pharma,  - Common Stock,0.00010800361633300781,Marinus Share common stock ,0.002603292465209961, Marinus Pharma, - - Common Stock,0.0003867149353027344
+NGM BioPharm.,  - Common Stock, NGM BioPharma,  - Common Stock,0.0001609325408935547,Elm Biopharma common stock ,0.0018258094787597656, NGM Biopharma, - - Common Stock,0.0004286766052246094
+NeuroBo Pharm.,  - Common Stock, NeuroBo Pharma,  - Common Stock,0.00011014938354492188,NeuroBo Share common stock ,0.0019161701202392578, NeuroBo Pharma, - - Common Stock,0.000362396240234375
+Opiant Pharm.,  - Common Stock, Opiant Pharma,  - Common Stock,0.0001285076141357422,Opiant Share common stock ,0.0021889209747314453, Opiant Pharma, - - Common Stock,0.00037980079650878906
+Oramed Pharm.  - Common Stock, Oramed Pharma  - Common Stock,0.00011157989501953125,Oramed Share common stock ,0.0021696090698242188, Oramed Pharma - - Common Stock,0.0003390312194824219
+Osmotica Pharm. plc - Ordinary Shares, Osmotica Pharma plc - Ordinary Shares,0.00011682510375976562,Osmotica Share plc ordinary shares ,0.0020933151245117188, Osmotica Pharma plc - Ordinary Shares,0.00034332275390625
+Progenics Pharm.  - Common Stock, Progenics Pharma  - Common Stock,0.00010848045349121094,Progenics Share common stock ,0.00241851806640625, Progenics Pharma - - Common Stock,0.00037932395935058594
+PhaseBio Pharm.,  - Common Stock, PhaseBio Pharma,  - Common Stock,0.00014472007751464844,PhaseBio Share common stock ,0.002245664596557617, PhaseBio Pharma, - - Common Stock,0.00038170814514160156
+Phathom Pharm.,  - Common Stock, Phathom Pharma,  - Common Stock,0.00011444091796875,Phathom Share common stock ,0.0021152496337890625, Phathom Pharma, - - Common Stock,0.0003707408905029297
+Phio Pharm. Corp. - Common Stock, Phio Pharma Corp. - Common Stock,0.0001366138458251953,Phio Share Corp common stock ,0.0021736621856689453, Phio Pharma Corp. - Common Stock,0.0004374980926513672
+Phio Pharm. Corp. - Warrants, Phio Pharma Corp. - Warrants,0.00018668174743652344,Phio Share Corp Warrants ,0.003034830093383789, Phio Pharma Corp. - Warrants,0.0003886222839355469
+Pieris Pharm.,  - Common Stock, Pieris Pharma,  - Common Stock,0.0001125335693359375,Pieris Share common stock ,0.001986265182495117, Pieris Pharma, - - Common Stock,0.0003628730773925781
+Paratek Pharm.,   - Common Stock, Paratek Pharma,   - Common Stock,0.00011229515075683594,Paratek Share common stock ,0.0020263195037841797, Paratek Pharma, - - - Common Stock,0.0004661083221435547
+Portola Pharm.,  - Common Stock, Portola Pharma,  - Common Stock,0.00015473365783691406,Portola Share common stock ,0.001989126205444336, Portola Pharma, - - Common Stock,0.000362396240234375
+Ra Pharm.,  - Common Stock, Ra Pharma,  - Common Stock,0.00010848045349121094,a Share common stock ,0.0012707710266113281, Ra Pharma, - - Common Stock,0.00035953521728515625
+Rocket Pharm.,  - Common Stock, Rocket Pharma,  - Common Stock,0.00010824203491210938,Rocket Share common stock ,0.001880645751953125, Rocket Pharma, - - Common Stock,0.0003631114959716797
+Regeneron Pharm.,  - Common Stock, Regeneron Pharma,  - Common Stock,0.00010943412780761719,Regeneron Share common stock ,0.002511739730834961, Regeneron Pharma, - - Common Stock,0.0003609657287597656
+Reata Pharm.,  - Class A Common Stock, Reata Pharma,  - Class A Common Stock,0.00011491775512695312,Reata Share Class a common stock ,0.0023365020751953125, Reata Pharma, - - Class A Common Stock,0.00037026405334472656
+Rexahn Pharm.,  - Common Stock, Rexahn Pharma,  - Common Stock,0.00010776519775390625,Rexahn Share common stock ,0.0018548965454101562, Rexahn Pharma, - - Common Stock,0.0004153251647949219
+Rigel Pharm.,  - Common Stock, Rigel Pharma,  - Common Stock,0.00010967254638671875,Rigel Share common stock ,0.0019910335540771484, Rigel Pharma, - - Common Stock,0.0003693103790283203
+Ritter Pharm.,  - Common Stock, Ritter Pharma,  - Common Stock,0.00011014938354492188,Ritter Share common stock ,0.0020418167114257812, Ritter Pharma, - - Common Stock,0.00036835670471191406
+Rhythm Pharm.,  - Common Stock, Rhythm Pharma,  - Common Stock,0.0001201629638671875,Rhythm Share common stock ,0.0019540786743164062, Rhythm Pharma, - - Common Stock,0.00036263465881347656
+Spring Bank Pharm.,  - Common Stock, Spring Bank Pharma,  - Common Stock,0.00011110305786132812,Spring Bank Share common stock ,0.002969503402709961, Spring Bank Pharma, - - Common Stock,0.0005130767822265625
+scPharm.  - Common Stock,  - Common Stock,0.0002105236053466797,- Share common stock ,0.0010807514190673828, - - Common Stock,0.12353730201721191
+Salarius Pharm.,  - Common Stock, Salarius Pharma,  - Common Stock,0.00013828277587890625,Salarius Share common stock ,0.002249002456665039, Salarius Pharma, - - Common Stock,0.00037288665771484375
+Syndax Pharm.,  - Common Stock, Syndax Pharma,  - Common Stock,0.00010967254638671875,Syndax Share common stock ,0.0018286705017089844, Syndax Pharma, - - Common Stock,0.0003628730773925781
+Sonoma Pharm.,  - Common Stock, Sonoma Pharma,  - Common Stock,0.00010943412780761719,Sonoma Share common stock ,0.0017402172088623047, Sonoma Pharma, - - Common Stock,0.00035762786865234375
+Sonoma Pharm.,  - Warrants, Sonoma Pharma,  - Warrants,0.00013065338134765625,Sonoma Share Warrants ,0.002567291259765625, Sonoma Pharma, - - Warrants,0.0004215240478515625
+Sunesis Pharm.,  - Common Stock, Sunesis Pharma,  - Common Stock,0.000110626220703125,Sunesis Share common stock ,0.0022339820861816406, Sunesis Pharma, - - Common Stock,0.0003771781921386719
+Spectrum Pharm.,  - Common Stock, Spectrum Pharma,  - Common Stock,0.00010919570922851562,Spectrum Share common stock ,0.002260923385620117, Spectrum Pharma, - - Common Stock,0.0005159378051757812
+Satsuma Pharm.,  - Common stock, Satsuma Pharma,  - Common stock,0.0001246929168701172,Satsuma Share common stock ,0.0017514228820800781, Satsuma Pharma, - - Common Stock,0.0003616809844970703
+Supernus Pharm.,  - Common Stock, Supernus Pharma,  - Common Stock,0.00011014938354492188,Supernus Share common stock ,0.002322673797607422, Supernus Pharma, - - Common Stock,0.0003743171691894531
+China SXT Pharm.,  - Common Stock, China SXT Pharma,  - Common Stock,0.00011277198791503906,China ex Share common stock ,0.002264261245727539, China SXT Pharma, - - Common Stock,0.00036644935607910156
+Syros Pharm.,  - common stock, Syros Pharma,  - common stock,0.00010466575622558594,Syros Share common stock ,0.0017452239990234375, Syros Pharma, - - Common Stock,0.0003941059112548828
+TRACON Pharm.,  - Common Stock, TRACON Pharma,  - Common Stock,0.00010895729064941406,Dragon Share common stock ,0.0020503997802734375, TRACON Pharma, - - Common Stock,0.0004451274871826172
+TFF Pharm.,  - Common Stock, TFF Pharma,  - Common Stock,0.0001087188720703125,of Share common stock ,0.0016269683837890625, TFF Pharma, - - Common Stock,0.0003616809844970703
+Tonix Pharm. Holding Corp. - Common Stock, Tonix Pharma Holding Corp. - Common Stock,0.00011301040649414062,Tonix Share Holding Corp common stock ,0.0033164024353027344, Tonix Pharma Holding Corp. - Common Stock,0.00032639503479003906
+Titan Pharm.,  - Common Stock, Titan Pharma,  - Common Stock,0.00010943412780761719,Titan Share common stock ,0.0016355514526367188, Titan Pharma, - - Common Stock,0.0003643035888671875
+Tetraphase Pharm.,  - Common Stock, Tetraphase Pharma,  - Common Stock,0.00010919570922851562,Tetraphase Share common stock ,0.0022919178009033203, Tetraphase Pharma, - - Common Stock,0.00035881996154785156
+Vanda Pharm.  - Common Stock, Vanda Pharma  - Common Stock,0.00010943412780761719,Vanda Share common stock ,0.0015633106231689453, Vanda Pharma - - Common Stock,0.00033974647521972656
+Verrica Pharm.  - Common Stock, Verrica Pharma  - Common Stock,0.0001087188720703125,Verrica Share common stock ,0.0018405914306640625, Verrica Pharma - - Common Stock,0.00033783912658691406
+Vertex Pharm. orporated - Common Stock, Vertex Pharma Corporate - Common Stock,0.00019979476928710938,Vertex Share Corporate common stock ,0.0034945011138916016, Vertex Pharma Corporate - Common Stock,0.15732765197753906
+Xenon Pharm.  - Common Shares, Xenon Pharma  - Common Shares,0.00015044212341308594,Xenon Share common shares ,0.0017185211181640625, Xenon Pharma - - Common Shares,0.00037670135498046875
+Xeris Pharm.,  - Common Stock, Xeris Pharma,  - Common Stock,0.00011181831359863281,Xeris Share common stock ,0.0017306804656982422, Xeris Pharma, - - Common Stock,0.00047707557678222656
+X4 Pharm.,  - Common Stock, X4 Pharma,  - Common Stock,0.0001220703125,- Share common stock ,0.0017049312591552734, X4 Pharma, - - Common Stock,0.0005035400390625
+XTL BioPharm. Ltd. - American Depositary Shares, XTL BioPharma Ltd. - American Depositary Shares,0.00019311904907226562,Wtd Biopharma Wtd American depositary shares ,0.003698110580444336, XTL Biopharma Ltd. - American Depositary Shares,0.0005655288696289062
+Zynerba Pharm.,  - Common Stock, Zynerba Pharma,  - Common Stock,0.0001430511474609375,Zynerba Share common stock ,0.0022678375244140625, Zynerba Pharma, - - Common Stock,0.0003867149353027344
